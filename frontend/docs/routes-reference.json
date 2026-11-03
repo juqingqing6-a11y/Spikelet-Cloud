@@ -1,0 +1,152 @@
+[
+  {
+    "path": "/token/",
+    "view": "TokenObtainPairView.as_view()",
+    "name": "token_obtain_pair"
+  },
+  {
+    "path": "/",
+    "view": "views.login",
+    "name": null
+  },
+  {
+    "path": "/logout/",
+    "view": "views.logout_view",
+    "name": "logout"
+  },
+  {
+    "path": "/register/",
+    "view": "views.register",
+    "name": null
+  },
+  {
+    "path": "/index/",
+    "view": "views.index",
+    "name": "index"
+  },
+  {
+    "path": "/user_single/",
+    "view": "views.user_single",
+    "name": null
+  },
+  {
+    "path": "/user_show/",
+    "view": "views.user_show",
+    "name": null
+  },
+  {
+    "path": "/user_add/",
+    "view": "views.user_add",
+    "name": null
+  },
+  {
+    "path": "/user_delete/",
+    "view": "views.user_delete",
+    "name": null
+  },
+  {
+    "path": "/user_show/<int:nid>/edit/",
+    "view": "views.user_edit",
+    "name": null
+  },
+  {
+    "path": "/sort/",
+    "view": "views.sort",
+    "name": null
+  },
+  {
+    "path": "/analyse/",
+    "view": "views.new_analyse",
+    "name": "upload-image"
+  },
+  {
+    "path": "/analyse/status/",
+    "view": "views.analyse_status",
+    "name": "analyse-status"
+  },
+  {
+    "path": "/analyse/progress/",
+    "view": "views.analyse_progress",
+    "name": "analyse-progress"
+  },
+  {
+    "path": "/upload/",
+    "view": "views.upload",
+    "name": null
+  },
+  {
+    "path": "/entity/",
+    "view": "views.entity",
+    "name": null
+  },
+  {
+    "path": "/test/",
+    "view": "views.test",
+    "name": "test"
+  },
+  {
+    "path": "/atest/",
+    "view": "views.atest",
+    "name": null
+  },
+  {
+    "path": "/forget/",
+    "view": "views.forget",
+    "name": null
+  },
+  {
+    "path": "/use/",
+    "view": "views.use",
+    "name": "use"
+  },
+  {
+    "path": "/ccc/",
+    "view": "views.ccc",
+    "name": null
+  },
+  {
+    "path": "/complety/",
+    "view": "views.complety",
+    "name": "complety"
+  },
+  {
+    "path": "/download/",
+    "view": "views.download",
+    "name": "download"
+  },
+  {
+    "path": "/downloadSingle/",
+    "view": "views.downloadSingle",
+    "name": "downloadSingle"
+  },
+  {
+    "path": "/getLatestDetection/",
+    "view": "views.getLatestDetection",
+    "name": "getLatestDetection"
+  },
+  {
+    "path": "/try/",
+    "view": "views.trySee",
+    "name": null
+  },
+  {
+    "path": "/downloadTestimage/",
+    "view": "views.downloadTestimage",
+    "name": "downloadTestimage"
+  },
+  {
+    "path": "/adatabase/",
+    "view": "views.adatabase",
+    "name": "adatabase"
+  },
+  {
+    "path": "/adatabase2/<str:image_name>/",
+    "view": "views.adatabase2",
+    "name": "adatabase2"
+  },
+  {
+    "path": "/downloadwhole/<str:image_name>/",
+    "view": "views.downloadwhole",
+    "name": "downloadwhole"
+  }
+]

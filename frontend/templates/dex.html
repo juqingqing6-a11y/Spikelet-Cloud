@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>{% block title %}{% endblock %}</title>
+    <base href="/">
+    {% block css %}
+
+    {% endblock %}
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.6/lib/theme-chalk/index.css">
+
+
+
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+
+        }
+
+        a:link {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:focus {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:active {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: white;
+        }
+        .button1 {
+            background-color: #b8d4c5;
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+        .button1:hover {
+            border: 2px solid #ebf0ee;
+        }
+        #button1{
+            background-color: #b8d4c5;
+            border: 1px;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+
+        #button1:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        {#.add {#}
+        {#    border: 1px solid;#}
+        {#    width: 300px;#}
+        {#    height: 300px;#}
+        {#    color: #ccc;#}
+        {#    transition: color .25s;#}
+        {#    position: relative;#}
+
+        .add {
+            border: 1px solid;
+            width: 300px;
+        {#height: 50%;#} color: #ccc;
+            transition: color .25s;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add::before,
+        .add::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .add::before {
+            width: 80px;
+            height: 10px;
+            border-top: 10px solid;
+        }
+
+        .add::after {
+            width: 10px;
+            height: 80px;
+            border-left: 10px solid;
+        }
+
+
+        .add:hover {
+            color: grey;
+        }
+
+        .Judgement_index {
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+        .Judgement_index:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        .SortButton {
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+        }
+
+        .SortButton:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        #slick-slider {
+            max-height: 100px; /* 设置最大高度 */
+            overflow: auto; /* 添加滚动条 */
+        }
+
+        ul li {
+            font-size: 16px;
+        }
+
+        /* 初始状态下，fixed_index 的 left 属性为 280px，与侧边栏的宽度一致 */
+        .fixed_index {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            width: 100%;
+            height: 52px;
+            background-color: #e9ecef;
+            margin-left: 2px;
+            z-index: 999;
+            transition: left 0.5s ease; /* 添加 left 属性的过渡效果 */
+        }
+
+
+        /* 显示时的过渡效果 */
+        #mySvg.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+
+        #savg.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+        #ssv.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+
+        #myDiv.show {
+            animation: fadeIn 2s;
+
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 初始时将按钮置于禁用状态 */
+        #myDiv[disabled] {
+            opacity: 0.8;
+            pointer-events: none;
+            box-shadow: 0px 0px 0px 0px;
+
+        }
+
+
+        #chinese {
+            text-decoration: none;
+            color: #009ACD;
+        }
+
+        #english {
+            text-decoration: none;
+            color: #009ACD;
+        }
+
+        #chinese:hover {
+            color: #104E8B;
+            text-decoration: none;
+        }
+
+        #english:hover {
+            color: #104E8B;
+            text-decoration: none;
+        }
+
+        #danger:hover {
+            color: white;
+            background-color: white;
+        }
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="container_one">
+
+
+    <div class="left-box"
+         style="width: 280px;background-color: #3b7839;color: white;">
+
+        {#    <div class="left-box"#}
+        {#         style="width: 280px;background: linear-gradient(to bottom, #90EE90, #FFFF99);color: #000000">#}
+        <div style="margin-left: -20px;height: 53px;" class="icon-text-container">
+            <span style="text-align: center;line-height: 50px">
+
+{#                <h3 style="padding-top: 8px">#}
+{#                    <i class="icon ion-cloud" style="color: #1e7e34"></i>#}
+{#                    <i class="icon ion-planet" style="color: #fdd501;font-size: 30px"></i><span id="text">稻穗云端分析</span></h3>#}
+                <h3 style="padding-top: 8px">
+{#                    <i class="icon ion-cloud" style="color: #1e7e34"></i>#}
+                    <img src="../static/image/logoo.png" style="width: 30px;height: 30px;transform: scaleX(-1);margin-right: 15px;"/><span id="text">稻穗云端分析</span></h3>
+
+            </span>
+            <hr style="width: 100%;margin: 0">
+        </div>
+
+        {% block ul %}
+            <ul>
+                <li class="item" data-onclick="goToSpikeSum">
+                    <i class="icon icon-file" style="color: white"></i>穗粒计数
+                </li>
+
+                <li class="item" data-onclick="goToTraitAnalysis">
+                    <i class="icon icon-album" style="color: white"></i>批量处理
+                </li>
+
+                <li class="item" data-onclick="goToDatabase">
+                    <i class="icon icon-search" style="color: white"></i>种子资源库
+                </li>
+
+{#                <p>{{ role }}</p>#}
+                {% if user_info.role == '0' %}
+                    <li class="item active" data-onclick="goToUserCenter">
+                        <i class="icon icon-like" style="color: white"></i>用户中心
+
+                    </li>
+                {% elif user_info.role == '1' %}
+                    <li class="item active" data-onclick="goToUserCenter">
+                        <i class="icon icon-like" style="color: white"></i>个人中心
+
+                    </li>
+                {% endif %}
+
+                <li class="item " data-onclick="goToGrainClassification">
+                    <i class="icon icon-vault"></i>使用手册
+                </li>
+
+                <li class="item" onclick="downloadTestImage()">
+                    <i class="icon icon-favorite" style="color: white"></i>下载测试数据
+                </li>
+
+                <hr>
+
+                <li id="testAlert">
+                    <i class="icon icon-gear" style="color: white"></i>
+                    {{ username }}<span id="welcomeMessage" style="margin-left: 5px">欢迎您</span>
+                </li>
+            </ul>
+        {% endblock %}
+
+
+    </div>
+    <div class="right-box"
+         style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">
+        {% block content %}
+
+            <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #ececed; margin-left: 2px;z-index: 999"
+                 class="fixed_index">
+                <div style="height: 50px;width: 100%; display: flex; align-items: center;background-color: #ececed">
+                    <i class="el-icon-s-fold" style="font-size: 30px"></i>
+
+                    <div style="height: 50px;margin-left: 10px;background-color: #ececed;font-size: 18px;font-family: 黑体;flex-grow: 1;display: flex;width: 100%">
+                        <nav class="breadcrumb" style="background-color: #ececed;float: left">
+                            <a class="breadcrumb-item" href="/" style="color: black;">首页</a>
+
+                            <span class="breadcrumb-item" style="color: #708090">个人中心</span>
+
+                        </nav>
+
+                        <div class="dropdown align-right"
+                             style="color: white;margin: auto;display: flex; align-items: center;justify-content: flex-end;width: 1100px;height: 45px"
+                             id="setLeft">
+                            <img src="../static/image/logo.png" style="width: auto;height: 100%;">
+                            <img src="../static/image/logooo.png" style="margin-right: 20px;">
+
+                            <ul style="list-style: none; padding: 0;margin: 0;display: flex;margin-right: 20px;font-size: 16px">
+                                <li style="margin-right: 5px;"><a href="javascript:void(0);" onclick="switchToChinese()"
+                                                                  id="chinese"
+                                                                  style="text-decoration: underline">中文</a></li>
+                                <li style="margin-right: 5px;"><a id="english" href="javascript:void(0);"
+                                                                  onclick="switchToEnglish()">/ English</a>
+                                </li>
+
+
+                            </ul>
+                            <a class="btn btn-outline-danger" id="danger"
+                               style="font-size: 16px; color: red"
+                               href="{% url 'logout' %}" onclick="setLanguageToChinese()">退出登录</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <form class="container" method="post" style="margin-top: 80px">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="exampleInputUser" class="col-sm-2 col-form-label">用户名：</label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="exampleInputUser" name="user"
+                           value="{{ data_list.user }}">
+                    </div>
+                  </div>
+                <div class="form-group row">
+                    <label for="exampleInputEmail1" class="col-sm-2 col-form-label">电子邮箱：</label>
+                    <div class="col-sm-5">
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           name="email" value="{{ data_list.email }}">
+                      <small id="emailHelp" class="form-text text-muted">我们不会将您的邮箱泄露出去，请正确填写。</small>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="exampleInputPassword1" class="col-sm-2 col-form-label">密码：</label>
+                    <div class="col-sm-5">
+                      <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                           value="{{ data_list.password }}">
+
+                    </div>
+                    <div class="col-sm-1" style="margin:auto;padding:0">
+                        <i id="eyeIcon" class="fas fa-eye-slash" onclick="togglePassword()"></i>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+
+                <button type="submit" class="btn btn-success" id="btn" style="margin-top: 20px;margin-right: 10px">保存用户信息</button>
+                <button type="button" class="btn btn-info" id="btn" style="margin-top: 20px" onclick="redirectToUserPage()">返回</button>
+
+            </form>
+
+
+        {% endblock %}
+    </div>
+
+
+</div>
+
+{#<script type="text/javascript" src="../static/js/120.js"></script>#}
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script>
+    function setLanguageToChinese() {
+        localStorage.setItem("language", "zh"); // 设置语言为中文
+    }
+</script>
+<script>
+    const storedLanguage = localStorage.getItem("language");
+
+    if (storedLanguage === "en") {
+        switchToEnglish();
+    } else{
+        switchToChinese(); // 调用 switchToChinese 函数以确保页面最初以中文显示
+    }
+    function switchToEnglish() {
+        let english = document.getElementById('english');
+        english.style.textDecoration = 'underline';
+        english.style.color = '	#0000FF';
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'none';
+        chinese.style.color = '#009ACD';
+        let setLeft = document.getElementById('setLeft');
+        setLeft.style.width = '970px';
+        let testAlertElement = document.getElementById('testAlert');
+        let username = "{{ username }}"; // 用实际的用户名替换这里的占位符
+        testAlertElement.innerHTML = `<i class="icon icon-gear" style="color: white"></i> <span id="welcomeMessage" style="margin-right: 5px">欢迎您</span>${username}`;
+
+        // 定义一个对象，将中文和对应的英文文本映射起来
+        let translationMap = {
+            "稻穗云端分析": "The RGPAS platform",
+            "首页": "Home page",
+            "下载测试数据": "Download test images",
+            "穗粒计数": "Analyse a single image",
+            "批量处理": "Batch processing",
+            "种子资源库": "Rice genotype gallery",
+            "用户中心": "User settings",
+            "使用手册": "User manual",
+
+            "退出登录": "Log out",
+            "欢迎您": "Welcome user",
+            "个人中心":"User center",
+            "用户名：":"Username：",
+            "电子邮箱：":"Email address：",
+            "密码：":"Password：",
+            "我们不会将您的邮箱泄露出去，请正确填写。":"We will not disclose your email,please fill in the correct information.",
+            "返回":"Return",
+            "保存用户信息":"Save User Information",
+
+            {#"选择文件":"Select"#}
+
+
+            // 添加更多需要翻译的文本
+        };
+
+        // 遍历页面上的所有元素，将中文文本替换为英文
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+        let listItems = document.querySelectorAll('li');
+        listItems.forEach(item => {
+            let textNode = item.childNodes[2]; // 获取文本节点
+            if (textNode) {
+                let text = textNode.textContent.trim();
+                if (translationMap[text]) {
+                    textNode.textContent = translationMap[text]; // 替换文本节点的内容
+                }
+            }
+        });
+        let textElement = document.getElementById('text');
+
+        if (textElement) {
+            let text = textElement.textContent.trim();
+            if (translationMap[text]) {
+                textElement.textContent = translationMap[text];
+            }
+        }
+        textElement.style.fontSize = '21px';
+        let welcomeMessage = document.getElementById('welcomeMessage');
+        if (welcomeMessage) {
+            let text = welcomeMessage.textContent.trim();
+            if (translationMap[text]) {
+                welcomeMessage.textContent = translationMap[text];
+            }
+        }
+        let sort = document.getElementById('sort');
+        if (sort) {
+            let text = sort.textContent.trim();
+            if (translationMap[text]) {
+                sort.textContent = translationMap[text];
+            }
+        }
+        let summary = document.getElementById('summary');
+        if (summary) {
+            let text = summary.textContent.trim();
+
+                summary.textContent = "Count spikelets";
+
+        }
+        let summerDiv = document.getElementById("summer");
+        let buttonInsideSummerDiv = summerDiv.querySelector("button");
+        buttonInsideSummerDiv.style.width = '160px';
+        let birth = document.getElementById("birth");
+        let buttonInsideBirthDiv = birth.querySelector("button");
+        buttonInsideBirthDiv.style.width = '180px';
+        localStorage.setItem("language", "en"); // 存储语言状态为英文
+
+    }
+
+    // 添加类似的函数，用于切换回中文
+    function switchToChinese() {
+        let testAlertElement = document.getElementById('testAlert');
+        let username = "{{ username }}"; // 用实际的用户名替换这里的占位符
+        testAlertElement.innerHTML = `<i class="icon icon-gear" style="color: white"></i>${username} <span id="welcomeMessage" style="margin-left: 5px">Welcome user</span> `;
+        let english = document.getElementById('english');
+        english.style.textDecoration = 'none';
+        english.style.color = '#009ACD';
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'underline';
+
+        chinese.style.color = '	#0000FF';
+        let setLeft = document.getElementById('setLeft');
+        setLeft.style.width = '1100px';
+        let translationMap = {
+            "The RSPAS platform": "稻穗云端分析",
+            "Home page": "首页",
+            "Spikelet counting": "穗粒计数",
+            "Batch processing": "批量处理",
+            "User center": "用户中心",
+            "User manual": "使用手册",
+
+            "Log out": "退出登录",
+            "Welcome user":"欢迎您" ,
+            "User center":"个人中心",
+            "Username：":"用户名：",
+            "Email address：":"电子邮箱：",
+            "Password：":"密码：",
+            "Save User Information":"保存用户信息",
+            "We will not disclose your email,please fill in the correct information.":"我们不会将您的邮箱泄露出去，请正确填写。",
+            "Return":"返回"
+
+            // 添加更多需要翻译的文本
+        };
+
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+        let listItems = document.querySelectorAll('li');
+        listItems.forEach(item => {
+            let textNode = item.childNodes[2]; // 获取文本节点
+            if (textNode) {
+                let text = textNode.textContent.trim();
+                if (translationMap[text]) {
+                    textNode.textContent = translationMap[text]; // 替换文本节点的内容
+                }
+            }
+        });
+        let textElement = document.getElementById('text');
+
+        if (textElement) {
+            let text = textElement.textContent.trim();
+            if (translationMap[text]) {
+                textElement.textContent = translationMap[text];
+            }
+        }
+        textElement.style.fontSize = '30px';
+        let sort = document.getElementById('sort');
+        if (sort) {
+            let text = sort.textContent.trim();
+            if (translationMap[text]) {
+                sort.textContent = translationMap[text];
+            }
+        }
+        let summary = document.getElementById('summary');
+        if (summary) {
+            let text = summary.textContent.trim();
+            summary.textContent = "穗粒计数";
+
+        }
+        let summerDiv = document.getElementById("summer");
+        let buttonInsideSummerDiv = summerDiv.querySelector("button");
+        buttonInsideSummerDiv.style.width = '120px';
+        let birth = document.getElementById("birth");
+        let buttonInsideBirthDiv = birth.querySelector("button");
+        buttonInsideBirthDiv.style.width = '130px';
+        localStorage.setItem("language", "zh"); // 存储语言状态为中文
+    }
+
+    // 调用 switchToChinese 函数以确保页面最初以中文显示
+    {#switchToChinese();#}
+</script>
+<script type="text/javascript">
+    function setActive(element) {
+        let items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+
+    function goToSpikeSum(element) {
+        setActive(element);
+        window.location.href = "/index";
+    }
+
+    function goToGrainClassification(element) {
+        setActive(element);
+        window.location.href = "/use";
+        // 跳转到性状分析页面
+    }
+
+    function goToTraitAnalysis(element) {
+        setActive(element);
+        window.location.href = "/atest";
+        // 跳转到批量处理页面
+    }
+
+    function goToUserCenter(element) {
+        setActive(element);
+        {% if user_info.role == '0' %}
+            window.location.href = "/user_show";
+        {% elif user_info.role == '1' %}
+            window.location.href = "/user_single";
+        {% endif %}
+    }
+
+    // 页面加载时，根据当前URL设置选中样式
+    window.onload = function () {
+        let pathname = window.location.pathname;
+        let items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            let action = item.getAttribute('data-onclick');
+            if (action && window[action] && typeof window[action] === 'function') {
+                item.addEventListener('click', () => {
+                    window[action](item);
+                });
+            }
+            if (item.getAttribute('data-onclick').includes(pathname)) {
+                setActive(item);
+            }
+        });
+    };
+</script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
+<script>
+    // 获取图标、左侧导航栏元素和图标文本容器
+    let icon = document.querySelector(".el-icon-s-fold");
+    let leftBox = document.querySelector(".left-box");
+    let iconTextContainer = document.querySelector(".icon-text-container");
+    let fixedIndex = document.querySelector(".fixed_index");
+    // 初始状态下侧边栏是展开的
+    let isSidebarCollapsed = false;
+
+    // 添加点击事件监听器
+    icon.addEventListener("click", () => {
+        // 切换左侧导航栏的宽度,设置为展开状态
+        if (isSidebarCollapsed) {
+            leftBox.style.width = "280px";
+            iconTextContainer.style.marginLeft = "-20px"; // 设置margin-left属性
+            fixedIndex.style.left = "280px"; // 设置 fixed_index 的 left 属性
+            icon.classList.remove("el-icon-s-unfold");
+            icon.classList.add("el-icon-s-fold");
+            isSidebarCollapsed = false;
+        } else {
+            leftBox.style.width = "55px";
+            iconTextContainer.style.marginLeft = "10px"; // 设置margin-left属性
+            fixedIndex.style.left = "55px"; // 设置 fixed_index 的 left 属性
+            icon.classList.remove("el-icon-s-fold");
+            icon.classList.add("el-icon-s-unfold");
+            isSidebarCollapsed = true;
+        }
+    });
+</script>
+<script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("exampleInputPassword1");
+        var eyeIcon = document.getElementById("eyeIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.className = "fas fa-eye";  // 切换为闭眼图标
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.className = "fas fa-eye-slash";  // 切换为睁眼图标
+        }
+    }
+</script>
+
+<script>
+    function downloadTestImage() {
+        let e = window.event || arguments[0];
+            e.preventDefault();
+            $.ajax({
+                url: "downloadTestimage/",  // 后端视图的URL
+                method: "GET",
+                // #dataType: "text",    原始的代码
+                xhrFields:{
+                    responseType: 'blob'     //强制jQuery处理二进制数据 对应原始代码的 dataType: "text"
+                },
+                success: function(data) {
+                    // 创建一个临时链接并模拟点击来下载文件
+                    // let blob = new Blob([data], { type: "text/csv" });   //更改下载的type (原始的代码)
+                    //let blob = new Blob([data], { type: "application/zip" });   //   原始的代码
+                    //let url = window.URL.createObjectURL(blob);                 //   原始的代码
+                    let url = window.URL.createObjectURL(data);  //新的代码
+                    let a = document.createElement("a");
+                    a.href = url;
+                    // a.download = "batches_data.csv";    //更改下载的文件名  初始为下载的是csv表格 (原始的代码)
+                    a.download = "TestImages.zip";    //更改下载的文件名  现在下载的是zip压缩包
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);   //增加的
+                    window.URL.revokeObjectURL(url);
+                }
+            });
+    }
+</script>
+
+</body>
+
+</html>

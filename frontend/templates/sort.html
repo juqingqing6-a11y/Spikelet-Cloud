@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>中文/English切换</title>
+    <style>
+        ul {
+            list-style: none; /* 移除默认的小圆点 */
+            padding: 0;
+            margin: 0;
+            display: flex; /* 使用Flex布局使列表项横向排列 */
+        }
+
+        li {
+            margin-right: 5px; /* 添加一些间距 */
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#" id="chinese">中文</a></li>
+        <li><a href="#" id="english">/ English</a></li>
+    </ul>
+
+    <div id="content">
+        <p id="chinese-content">这是中文内容。</p>
+        <p id="english-content">This is English content.</p>
+    </div>
+
+    <script>
+        // 获取链接元素和内容元素
+        const chineseLink = document.getElementById('chinese');
+        const englishLink = document.getElementById('english');
+        const chineseContent = document.getElementById('chinese-content');
+        const englishContent = document.getElementById('english-content');
+
+        // 初始显示中文内容
+        chineseContent.style.display = 'block';
+        englishContent.style.display = 'none';
+
+        // 点击中文链接时显示中文内容，隐藏英文内容
+        chineseLink.addEventListener('click', function() {
+            chineseContent.style.display = 'block';
+            englishContent.style display = 'none';
+        });
+
+        // 点击英文链接时显示英文内容，隐藏中文内容
+        englishLink.addEventListener('click', function() {
+            chineseContent.style.display = 'none';
+            englishContent.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

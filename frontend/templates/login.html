@@ -1,0 +1,431 @@
+<html lang="en">
+<!-- https://codepen.io/danielkvist/pen/LYNVyPL -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">#}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            margin: 0;
+        {#height: 100%;#} width: 100%;
+            align-items: center;
+        {#background-color: var(--white);#} background-image: url("../static/image/bk.png");
+            /* 决定背景图像的位置是在视口内固定，或者随着包含它的区块滚动。 */
+            /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-attachment */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+            opacity: 0.98;
+        }
+
+        .align-right {
+            position: absolute;
+            top: 10px; /* 调整按钮距离顶部的距离 */
+            right: 10px; /* 调整按钮距离右边的距离 */
+        }
+
+        ul {
+            list-style: none; /* 移除默认的小圆点 */
+            padding: 0;
+            margin: 0;
+            display: flex; /* 使用Flex布局使列表项横向排列 */
+        }
+
+        li {
+            margin-right: 5px; /* 添加一些间距 */
+        }
+
+        #chinese {
+            text-decoration: none;
+            color: white;
+        }
+
+        #english {
+            text-decoration: none;
+            color: white;
+        }
+
+        #chinese:hover {
+            color: #7abaff;
+            text-decoration: none;
+        }
+
+        #english:hover {
+            color: #7abaff;
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<!-- 为下拉菜单添加一个包装 <div> 元素 -->
+<div class="dropdown align-right" style="color: white">
+
+    <ul>
+        <li><a href="javascript:void(0);" onclick="switchToChinese()" id="chinese" style="text-decoration: underline">中文</a></li>
+        <li><a id="english" href="javascript:void(0);" onclick="switchToEnglish()">/ English</a></li>
+    </ul>
+</div>
+<div class="container" style="width: 600px;background-color: white;height: 400px;border-radius: 10px;">
+
+    <div style="width: 100%;height: 68px;text-align: center;line-height: 68px;margin-top: 25px" id="header">
+        <h2 style="color: #1b1e21">穗粒表型分析系统</h2>
+    </div>
+    <div style="width: 100%;margin-top:25px ">
+        <form method="post" action="/">
+            {% csrf_token %}
+            <div class="input-group mb-3" style="margin-left: 10px;width: 95%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1" style="width: 105px">电子邮箱：</span>
+                </div>
+                <input type="text" class="form-control" data-cn-placeholder="请输入注册时的电子邮箱"
+                       data-en-placeholder="Enter your email address" name="email" id="email">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 25px;margin-left: 10px;width: 95%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon2" style="width: 105px;padding-left: 15px">密码：</span>
+                </div>
+                <input type="password" class="form-control" data-cn-placeholder="请输入密码（区分大小写）"
+                       data-en-placeholder="Enter your password" name="password" id="password">
+            </div>
+            {% if error_msg %}
+                <span style="color: red; font-size: 16px; font-family: 黑体; width: 240px">{{ error_msg }}</span>
+            {% endif %}
+            <input type="hidden" name="login_type" id="login_type" value="">
+
+            <div class = "col-md-12">
+                <button type="submit" class="btn btn-success col-md-5" id="userLogin"
+                    style="width: 100%;height: 50px;font-size: 20px;margin-top: 20px;margin-left: 30px"
+                    onclick="success('user')">用户登录
+                </button>
+                <button class="col-md-2" style="display: none"></button>
+                <button type="submit" class="btn btn-success col-md-5" id="adLogin"
+                    style="width: 100%;height: 50px;font-size: 20px;margin-top: 20px;margin-left: 20px"
+                    onclick="success('admin')">管理员登录
+                </button>
+            </div>
+        </form>
+
+
+
+        <div style="display: flex;margin-top: 30px">
+            <div style="float: left;margin-right: 100px;margin-left: 80px" id="setRegister">
+                <a href="/register" style="text-decoration: underline;">没有账号？点击注册</a>
+            </div>
+            <div style="float: left;">
+                <a href="javascript:void(0);" id="forgotPasswordLink" style="color: #6f42c1;text-decoration: underline;">忘记密码？点击找回</a>
+            </div>
+
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog"
+                 aria-labelledby="forgotPasswordModalLabel" aria-hidden="true" >
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width: 600px" id="contenter">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="forgotPasswordModalLabel">找回密码</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- 在这里放置找回密码的表单 -->
+                            <form id="forgotPasswordForm" action="/forget/" method="post">
+                                {% csrf_token %}
+                                <div class="input-group mb-3" style="margin: 10px;width: 95%">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3" style="width: 106px">用户名：</span>
+                                    </div>
+                                    <input type="text" class="form-control" data-cn-placeholder="请输入注册时的用户名" data-en-placeholder="Please enter your email address registered with RSPAS" name="username"
+                                           id="username">
+                                </div>
+                                <div class="input-group mb-3" style="margin: 10px;width: 95%">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon4">电子邮箱：</span>
+                                    </div>
+                                    <input type="text" class="form-control" data-cn-placeholder="请输入注册时的电子邮箱"
+                       data-en-placeholder="Please enter your email address registered with RSPAS" name="temail" id="temail">
+                                </div>
+                                <div id="forgrt_password" style="color: red; font-size:20px;margin: 20px">
+
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="margin: 10px;width: 95%">找回密码</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script>
+    // 获取存储的语言状态
+    const storedLanguage = localStorage.getItem("language");
+
+    if (storedLanguage === "en") {
+        switchToEnglish();
+    } else {
+        switchToChinese();
+    }
+    function switchToEnglish() {
+        let english = document.getElementById('english');
+        english.style.textDecoration = 'underline';
+        english.style.color = '#7abaff';
+
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'none';
+        chinese.style.color = 'white';
+        let setContainer = document.getElementsByClassName('container')[0];
+        let box = document.getElementById('header');
+        let basic_addon1 = document.getElementById('basic-addon1');
+        let basic_addon2 = document.getElementById('basic-addon2');
+        let basic_addon3 = document.getElementById('basic-addon3');
+        let basic_addon4 = document.getElementById('basic-addon4');
+        let setRegister = document.getElementById('setRegister');
+        let contenter= document.getElementById('contenter');
+        contenter.style.width = '700px'
+        setContainer.style.height = '400px';
+        setContainer.style.width = '600px';
+        box.style.height = '68px';
+        basic_addon1.style.width = '130px';
+        basic_addon2.style.width = '130px';
+        basic_addon2.style.paddingLeft = '15px';
+        setRegister.style.marginLeft = '70px';
+        basic_addon3.style.width = '130px';
+        basic_addon4.style.width = '130px';
+
+        // 定义一个对象，将中文和对应的英文文本映射起来
+        let translationMap = {
+            "穗粒表型分析系统": "Rice grain phenotypic analysis system (RGPAS)",
+            "用户名：": "Username:",
+            "密码：": "Password:",
+            "登录": "Sign in",
+            "没有账号？点击注册": "Register a new account",
+            "忘记密码？点击找回": "Forget your password",
+            "电子邮箱：": "Email addres:",
+            "找回密码":"Password Recovery",
+            "用户登录":"General User Login",
+            "管理员登录":"Administrator Login"
+
+
+
+            // 添加更多需要翻译的文本
+        };
+
+        // 遍历页面上的所有元素，将中文文本替换为英文
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+        // 切换输入框的提示文字
+        let inputElements = document.querySelectorAll('input[data-cn-placeholder]');
+        for (let j = 0; j < inputElements.length; j++) {
+            let placeholder = inputElements[j].getAttribute('data-en-placeholder');
+            if (placeholder) {
+                inputElements[j].setAttribute('placeholder', placeholder);
+            }
+        }
+        let userLoginButton = document.getElementById('userLogin');
+        userLoginButton.textContent = 'User login';
+
+        let adminLoginButtonText = document.getElementById('adLogin');
+        adminLoginButtonText.textContent='Admin login';
+
+{#        // 获取登录按钮元素#}
+{#        let loginButton = document.querySelector('button[type="submit"]');#}
+{##}
+{#// 如果找到了登录按钮元素，则设置其文本内容#}
+{#        if (loginButton) {#}
+{#            loginButton.textContent = translationMap["用户登录"];#}
+{#        }#}
+       localStorage.setItem("language", "en"); // 存储语言状态为英文
+
+
+    }
+
+    // 添加类似的函数，用于切换回中文
+    function switchToChinese() {
+        let english = document.getElementById('english');
+        english.style.textDecoration = 'none';
+        english.style.color = 'white';
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'underline';
+        chinese.style.color = '#7abaff';
+        let basic_addon1 = document.getElementById('basic-addon1');
+        let basic_addon2 = document.getElementById('basic-addon2');
+
+        basic_addon1.style.width = '105px';
+        basic_addon2.style.width = '105px';
+        let contenter= document.getElementById('contenter');
+        contenter.style.width = '600px'
+        let basic_addon3 = document.getElementById('basic-addon3');
+        let basic_addon4 = document.getElementById('basic-addon4');
+
+        basic_addon3.style.width = '106px';
+        basic_addon4.style.width = '106px';
+
+        let translationMap = {
+            "Rice grain phenotypic analysis system (RGPAS)": "穗粒表型分析系统",
+            "Username:": "用户名：",
+            "Password:": "密码：",
+            "Email address:": "电子邮箱：",
+            "Sign in": "登录",
+            "Register a new account": "没有账号？点击注册",
+            "Forget your password": "忘记密码？点击找回",
+            "Password Recovery":"找回密码",
+            "General User Login":"用户登录",
+            "Administrator Login":"管理员登录"
+            // 添加更多需要翻译的文本
+        };
+
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+
+        // 切换输入框的提示文字
+        let inputElements = document.querySelectorAll('input[data-en-placeholder]');
+        for (let j = 0; j < inputElements.length; j++) {
+            let placeholder = inputElements[j].getAttribute('data-cn-placeholder');
+            if (placeholder) {
+                inputElements[j].setAttribute('placeholder', placeholder);
+            }
+        }
+        let userLoginButton = document.getElementById('userLogin');
+        userLoginButton.textContent = '用户登录';
+
+        let adminLoginButtonText = document.getElementById('adLogin');
+        adminLoginButtonText.textContent='管理员登录';
+{#        // 获取登录按钮元素#}
+{#        let loginButton = document.querySelector('button[type="submit"]');#}
+{##}
+{#// 如果找到了登录按钮元素，则设置其文本内容#}
+{#        if (loginButton) {#}
+{#            loginButton.textContent = "用户登录";#}
+{#        }#}
+        localStorage.setItem("language", "zh"); // 存储语言状态为中文
+
+
+    }
+    // 调用 switchToChinese 函数以确保页面最初以中文显示
+    {#switchToChinese();#}
+</script>
+<script>
+    function success(loginType) {
+        document.getElementById("login_type").value = loginType;
+        let username = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        console.log(username, password)
+
+        // 获取当前语言状态，默认设置为英文（en）
+        const storedLanguage = localStorage.getItem("language") || "en";
+        // 定义中英文提示信息
+        const messages = {
+            emailFields: {
+                en: "Please enter your email address and password first.",
+                zh: "请先输入电子邮箱和密码",
+            },
+            passwordLength: {
+                en: "The password length must be large than 10 characters.",
+                zh: "密码长度必须大于10",
+            },
+            passwordFormat: {
+                en: "The password must contain the following simultaneously: uppercase letters, lowercase letters, numbers, and special characters.",
+                zh: "密码必须同时包含：大写字母、小写字母、数字、特殊字符",
+            },
+        };
+
+        if (username === "" || password === "") {
+            alert(messages.emailFields[storedLanguage]);
+            return false;
+        }
+
+        // 验证密码长度>10
+        if (password.length <= 10) {
+            alert(messages.passwordLength[storedLanguage]);
+            return false;
+        }
+
+        // 验证密码检查四类字符
+        let hasUpper = /[A-Z]/.test(password);
+        let hasLower = /[a-z]/.test(password);
+        let hasDigit = /[0-9]/.test(password);
+        let hasSpecial = /[^A-Za-z0-9\u4e00-\u9fa5]/.test(password); // 特殊字符（非数字、字母、中文）
+
+        if (!(hasUpper && hasLower && hasDigit && hasSpecial)) {
+            alert(messages.passwordFormat[storedLanguage]);
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
+<script>
+    $('#forgotPasswordLink').click(function () {
+        $('#username').val('');
+        $('#email').val('');
+        $('#forgrt_password').empty();
+        $('#forgotPasswordModal').modal('show');
+    });
+    $('#forgotPasswordForm').submit(function (e) {
+        e.preventDefault(); // 阻止表单的默认提交行为
+        let username = document.getElementById("username").value;
+        console.log(username)
+        let email = document.getElementById("temail").value;
+
+        console.log(email)
+
+        // 发送用户名和邮箱数据到后端
+        $.ajax({
+            url: "/forget/",
+            type: "POST",
+            data: {
+                username: username,
+                email: email
+            },
+            success: function (response) {
+                // 处理后端的响应，例如显示成功消息或其他操作
+                console.log(response.password);
+                $('#forgrt_password').html(`您的密码是：${response.password}`);
+                {#$('#forgotPasswordModal').modal('hide'); // 关闭模态框#}
+            },
+
+        });
+    });
+
+
+
+</script>
+<!-- 在你的 HTML 文件中引入 Popper.js -->
+
+</body>
+
+</html>

@@ -1,0 +1,419 @@
+<html lang="en">
+<!-- https://codepen.io/danielkvist/pen/LYNVyPL -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            margin: 0;
+        {#height: 100%;#} width: 100%;
+            align-items: center;
+        {#background-color: var(--white);#} background-image: url("../static/image/bk.png");
+            /* 决定背景图像的位置是在视口内固定，或者随着包含它的区块滚动。 */
+            /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-attachment */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: grid;
+            height: 100vh;
+            place-items: center;
+            opacity: 0.98;
+        }
+
+        .align-right {
+            position: absolute;
+            top: 10px; /* 调整按钮距离顶部的距离 */
+            right: 10px; /* 调整按钮距离右边的距离 */
+        }
+
+        /* 移除按钮的默认样式 */
+        button[type="reset"] {
+            border: none; /* 移除边框 */
+            background: none; /* 移除背景色 */
+            padding: 0; /* 移除内边距 */
+            text-decoration: underline; /* 添加下划线，使其看起来更像链接 */
+            cursor: pointer; /* 将光标设置为手型，以指示可单击 */
+            outline: none; /* 移除点击时的轮廓边框（可选） */
+        }
+
+        /* 设置按钮的文本颜色 */
+        button[type="reset"] {
+            color: #6f42c1; /* 可以根据你的设计选择颜色 */
+        }
+
+        /* 悬停时改变文本颜色 */
+        button[type="reset"]:hover {
+            color: #6610f2; /* 可以根据你的设计选择颜色 */
+        }
+
+        ul {
+            list-style: none; /* 移除默认的小圆点 */
+            padding: 0;
+            margin: 0;
+            display: flex; /* 使用Flex布局使列表项横向排列 */
+        }
+
+        li {
+            margin-right: 5px; /* 添加一些间距 */
+        }
+
+        #chinese {
+            text-decoration: none;
+            color: white;
+        }
+
+        #english {
+            text-decoration: none;
+            color: white;
+        }
+
+        #chinese:hover {
+            color: #7abaff;
+            text-decoration: none;
+        }
+
+        #english:hover {
+            color: #7abaff;
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<!-- 为下拉菜单添加一个包装 <div> 元素 -->
+<div class="dropdown align-right" style="color: white">
+
+    <ul>
+        <li><a href="javascript:void(0);" onclick="switchToChinese()" id="chinese">中文</a></li>
+        <li><a id="english" href="javascript:void(0);" onclick="switchToEnglish()">/ English</a></li>
+    </ul>
+</div>
+<div class="container" style="width: 600px;background-color: white;height: 450px;border-radius: 10px;">
+
+    <div style="width: 100%;height: 50px;text-align: center;line-height: 50px;margin-top: 25px">
+        <h2 style="color: #1b1e21">注册账号</h2>
+    </div>
+    <div style="width: 100%;margin-top:25px ">
+        <form method="post" action="/register">
+            {% csrf_token %}
+            <div class="input-group mb-3" style="margin-left: 10px;width: 95%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1" style="width: 106px">用户名：</span>
+                </div>
+                <input type="text" class="form-control" data-cn-placeholder="请输入5-15位的用户名" data-en-placeholder="At least 5-15 characters" name="user" id="user">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 25px;margin-left: 10px;width: 95%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 106px"
+                          id="basic-addon2">密码：</span>
+                </div>
+                <input type="text" class="form-control" data-cn-placeholder="请输入超过10位的密码"  data-en-placeholder="More than 10 characters" name="password" id="password">
+            </div>
+            <div class="input-group mb-3" style="margin-top: 25px;margin-left: 10px;width: 95%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3" style="width: 106px">电子邮箱：</span>
+                </div>
+                <input type="email" class="form-control" data-cn-placeholder="请输入正确的学术邮箱" data-en-placeholder="A valid academic email address" name="email" id="email">
+            </div>
+            <div>
+                <span style="color: red; font-size: 16px;width: 240px" id="error_msg">
+
+                </span>
+            </div>
+
+
+        </form>
+
+        <button type="submit" class="btn btn-success"
+                style="width: 100%;height: 50px;font-size: 20px;margin-top: 20px"
+                onclick="success()">注&nbsp;&nbsp;册
+        </button>
+        <div style="display: flex;margin-top: 30px">
+            <div style="float: left;margin-right: 100px;margin-left: 100px" id="getSuccess">
+                <a href="/">创建完成，返回登录页</a>
+            </div>
+            <div style="float: left;">
+                <button type="reset" onclick="setNone()">
+                    输入有误？点击清空
+                </button>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script>
+    function success() {
+        let username = document.getElementById("user").value;
+        let password = document.getElementById("password").value;
+        let email = document.getElementById("email").value;
+
+        // 获取当前语言状态，默认设置为英文（en）
+        const storedLanguage = localStorage.getItem("language") || "en";
+
+        // 定义中英文提示信息
+        const messages = {
+            emptyFields: {
+                en: "Please fill in correctly without entering spaces!",
+                zh: "请正确填写，不要输入空格！",
+            },
+            usernameLength: {
+                en: "The username length must be between 5 and 20 characters.",
+                zh: "用户名长度必须在5-20位之间",
+            },
+            passwordLength: {
+                en: "The password length must be large than 10 characters.",
+                zh: "密码长度必须大于10",
+            },
+            passwordFormat: {
+                en: "The password must contain the following simultaneously: uppercase letters, lowercase letters, numbers, and special characters.",
+                zh: "密码必须同时包含：大写字母、小写字母、数字、特殊字符",
+            },
+            emailError: {
+                en: "The email address must be an academic one (with .edu or .ac in the domain name). Please try again!",
+                zh: "邮箱必须为学术邮箱(域名中包含 .edu 或 .ac), 请重新输入！",
+            },
+            emailCorrect: {
+                en: "The email format is correct.",
+                zh: "邮箱格式正确",
+            },
+        };
+
+        if (username === "" || password === "" || email === "") {
+            alert(messages.emptyFields[storedLanguage]);
+            return false;
+        }
+
+        // 验证用户名长度是否在5-20位之间
+        if (username.length < 5 || username.length > 20) {
+            alert(messages.usernameLength[storedLanguage]);
+            return false;
+        }
+
+        // 验证密码长度>10
+        if (password.length <= 10) {
+            alert(messages.passwordLength[storedLanguage]);
+            return false;
+        }
+
+        // 验证密码检查四类字符
+        let hasUpper = /[A-Z]/.test(password);
+        let hasLower = /[a-z]/.test(password);
+        let hasDigit = /[0-9]/.test(password);
+        let hasSpecial = /[^A-Za-z0-9\u4e00-\u9fa5]/.test(password); // 特殊字符（非数字、字母、中文）
+
+        if (!(hasUpper && hasLower && hasDigit && hasSpecial)) {
+            alert(messages.passwordFormat[storedLanguage]);
+            return false;
+        }
+        //    alert("密码只能包含数字、大写字母和小写字母");
+        //    return false;
+        //}
+
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(email) && (email.toLowerCase().includes(".edu") || email.toLowerCase().includes(".ac"))) {
+            console.log(messages.emailCorrect[storedLanguage]);
+        }else {
+            alert(messages.emailError[storedLanguage]); // 邮箱输入错误
+            return false;
+        }
+        //    console.log("邮箱格式正确");
+        //} else {
+        //    alert("邮箱输入错误，请重新输入！")
+        //}
+
+        // 发送用户名和邮箱数据到后端
+        $.ajax({
+            url: "/register/",
+            type: "POST",
+            data: {
+                username: username,
+                email: email,
+                password: password,
+            },
+            success: function (response) {
+                // 处理后端的响应，例如显示成功消息或其他操作
+                console.log("success");
+                $('#error_msg').html(`${response.message}`);
+            },
+        });
+    }
+</script>
+
+<script>
+    // 获取存储的语言状态
+    const storedLanguage = localStorage.getItem("language");
+
+    if (storedLanguage === "en") {
+        switchToEnglish();
+    } else {
+        switchToChinese();
+    }
+
+    function switchToEnglish() {
+         let english = document.getElementById('english');
+        english.style.textDecoration = 'underline';
+        english.style.color = '#7abaff';
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'none';
+        chinese.style.color = 'white';
+        {#let setContainer = document.getElementsByClassName('container')[0];#}
+        {#let box = document.getElementById('header');#}
+        let basic_addon1 = document.getElementById('basic-addon1');
+        let basic_addon2 = document.getElementById('basic-addon2');
+        let basic_addon3 = document.getElementById('basic-addon3');
+        {#let setRegister = document.getElementById('setRegister');#}
+        {#setContainer.style.height = '370px';#}
+        {#setContainer.style.width = '600px';#}
+        {#box.style.height = '68px';#}
+        basic_addon1.style.width = '130px';
+        basic_addon2.style.width = '130px';
+        basic_addon3.style.width = '130px';
+        {#basic_addon2.style.paddingLeft = '15px';#}
+        {#setRegister.style.marginLeft = '100px';#}
+        let getSuccess = document.getElementById('getSuccess');
+        getSuccess.style.marginLeft = '200px';
+        getSuccess.style.marginRight = '50px';
+        // 定义一个对象，将中文和对应的英文文本映射起来
+        let translationMap = {
+            "注册账号": "Create a RGPAS account",
+            "用户名：": "Username:",
+            "密码：": "Password:",
+            "电子邮箱：": "Email address:",
+            "注册": "Register the account",
+            "创建完成，返回登录页": "Return to login",
+            "输入有误？点击清空": "Reset",
+
+            // 添加更多需要翻译的文本
+        };
+
+        // 遍历页面上的所有元素，将中文文本替换为英文
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+        // 切换输入框的提示文字
+        let inputElements = document.querySelectorAll('input[data-cn-placeholder]');
+        for (let j = 0; j < inputElements.length; j++) {
+            let placeholder = inputElements[j].getAttribute('data-en-placeholder');
+            if (placeholder) {
+                inputElements[j].setAttribute('placeholder', placeholder);
+            }
+        }
+        // 获取登录按钮元素
+        let NullButton = document.querySelector('button[type="reset"]');
+
+// 如果找到了登录按钮元素，则设置其文本内容
+        if (NullButton) {
+            NullButton.textContent = translationMap["输入有误？点击清空"];
+        }
+        // 获取登录按钮元素
+        let loginButton = document.querySelector('button[type="submit"]');
+
+// 如果找到了登录按钮元素，则设置其文本内容
+        if (loginButton) {
+            loginButton.textContent = translationMap["注册"];
+        }
+        localStorage.setItem("language", "en"); // 存储语言状态为英文
+    }
+
+    // 添加类似的函数，用于切换回中文
+    function switchToChinese() {
+         let english = document.getElementById('english');
+        english.style.textDecoration = 'none';
+        english.style.color = 'white';
+        let chinese = document.getElementById('chinese');
+        chinese.style.textDecoration = 'underline';
+        chinese.style.color = '#7abaff';
+         let basic_addon1 = document.getElementById('basic-addon1');
+        let basic_addon2 = document.getElementById('basic-addon2');
+        let basic_addon3 = document.getElementById('basic-addon3');
+        {#let setRegister = document.getElementById('setRegister');#}
+        {#setContainer.style.height = '370px';#}
+        {#setContainer.style.width = '600px';#}
+        {#box.style.height = '68px';#}
+        basic_addon1.style.width = '106px';
+        basic_addon2.style.width = '106px';
+        basic_addon3.style.width = '106px';
+        {#basic_addon2.style.paddingLeft = '15px';#}
+        {#setRegister.style.marginLeft = '100px';#}
+        let getSuccess = document.getElementById('getSuccess');
+        getSuccess.style.marginLeft = '70px';
+        getSuccess.style.marginRight = '100px';
+        let translationMap = {
+            "Create a RGPAS account": "注册账号",
+            "Username:": "用户名：",
+            "Password:": "密码：",
+            "Email address:": "电子邮箱：",
+            "Register the account": "注册",
+            "Return to login": "创建完成，返回登录页",
+            "Reset": "输入有误？点击清空",
+
+            // 添加更多需要翻译的文本
+        };
+
+        let elements = document.getElementsByTagName('*');
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                elements[i].textContent = translationMap[elements[i].textContent];
+            }
+        }
+
+        // 切换输入框的提示文字
+        let inputElements = document.querySelectorAll('input[data-en-placeholder]');
+        for (let j = 0; j < inputElements.length; j++) {
+            let placeholder = inputElements[j].getAttribute('data-cn-placeholder');
+            if (placeholder) {
+                inputElements[j].setAttribute('placeholder', placeholder);
+            }
+        }
+        // 获取登录按钮元素
+        let loginButton = document.querySelector('button[type="submit"]');
+
+// 如果找到了登录按钮元素，则设置其文本内容
+        if (loginButton) {
+            loginButton.textContent = "注册";
+        }
+        localStorage.setItem("language", "zh"); // 存储语言状态为中文
+    }
+
+    // 调用 switchToChinese 函数以确保页面最初以中文显示
+    {#switchToChinese();#}
+
+</script>
+<!-- 在你的 HTML 文件中引入 Popper.js -->
+<script>
+    function setNone() {
+
+        $('#user').val('');
+        $('#email').val('');
+        $('#password').val('');
+
+    }
+</script>
+</body>
+
+</html>

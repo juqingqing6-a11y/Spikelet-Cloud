@@ -1,0 +1,23 @@
+<!-- your_app_name/templates/show_images.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show Images</title>
+</head>
+<body>
+<h1>Images in Database</h1>
+<input type="button" value="重新选择">
+{% if detections %}
+    {% for detection in detections %}
+        <div>
+{#            <h2>Image: {{ detection.pic }}</h2>#}
+            <img src="../static/images/{{ detection.pic }}.jpg" alt="Result Image">
+            <p>Target Image: {{ detection.target_pic }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No images in the database.</p>
+{% endif %}
+</body>
+</html>

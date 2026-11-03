@@ -1,0 +1,482 @@
+{% extends 'index.html' %}
+{% block css %}
+    {{ block.super }}
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #button1 {
+            background-color: #b8d4c5;
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+        #button1:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        #button2 {
+            background-color: #b8d4c5;
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+        #button2:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+
+        .table th,
+        .table td {
+            text-align: center; /* 居中显示表头和单元格内容 */
+        }
+
+        .table tbody tr {
+            height: 60px; /* 设置每一行的高度为60px */
+            text-align: center;
+        }
+
+        .table tbody tr td {
+            max-height: 60px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        #imageTableBody {
+            height: 400px;
+            max-height: 400px;
+            overflow: auto;
+            overflow-y: scroll;
+        }
+
+        /* 初始状态下，fixed_index 的 left 属性为 280px，与侧边栏的宽度一致 */
+        .fixed_index {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            width: 100%;
+            height: 52px;
+            background-color: #e9ecef;
+            margin-left: 2px;
+            z-index: 999;
+            transition: left 0.5s ease; /* 添加 left 属性的过渡效果 */
+        }
+    </style>
+{% endblock %}
+{% load static %}
+{% block title %}
+    批量处理
+{% endblock %}
+
+{% block ul %}
+    <ul>
+        <li class="item" data-onclick="goToSpikeSum">
+            <i class="icon icon-file"></i>
+            穗粒计数
+        </li>
+        {#        <li class="item " data-onclick="goToGrainClassification">#}
+        {#            <i class="icon icon-vault"></i>#}
+        {#            性状分析#}
+        {#        </li>#}
+        <li class="item active" data-onclick="goToTraitAnalysis">
+            <i class="icon icon-album"></i>
+            批量处理
+        </li>
+        <li class="item " data-onclick="goToUserCenter">
+            <i class="icon icon-like"></i>
+            用户中心
+        </li>
+        <li class="item " data-onclick="goToGrainClassification">
+            <i class="icon icon-vault"></i>
+            使用手册
+        </li>
+
+        <hr>
+
+        <li>
+            <i class="icon icon-gear"></i>
+            {{ username }} 欢迎您
+        </li>
+    </ul>
+{% endblock %}
+{% block content %}
+    <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #e9ecef; margin-left: 2px;z-index: 999"
+         class="fixed_index">
+        <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #ececed; margin-left: 2px;z-index: 999"
+             class="fixed_index">
+            <div style="height: 50px;width: 100%; display: flex; align-items: center;background-color: #ececed">
+                <i class="el-icon-s-fold" style="font-size: 30px"></i>
+
+                <div style="height: 50px;margin-left: 10px;background-color: #ececed;font-size: 18px;font-family: 黑体;flex-grow: 1;display: flex">
+                    <nav class="breadcrumb" style="background-color: #ececed;float: left">
+                        <a class="breadcrumb-item" href="/" style="color: black;">首页</a>
+
+                        <span class="breadcrumb-item" style="color: #708090">批量处理</span>
+
+                    </nav>
+                    <a class="btn btn-outline-danger"
+                       style="font-size: 16px; height: 40px; margin: auto; margin-left: 1300px;color: red"
+                       href="/">退出登录</a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div style="background-color: white;width: auto;margin-top: 52px">
+
+        <div class="col-md-12" style="margin-top: 10px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" style="display: flex;height: 50px;background-color: #9BCD9B">
+                            <div style="height: 50px;color: black;letter-spacing: 1px;font-weight: 540;font-size: 16px">
+                                批量上传图片：
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body" style="padding:0;margin: 0;height: 85px">
+                            <div style="display: flex;flex-wrap: wrap;margin-top: 20px;margin-left: 90px;justify-content: space-between;height: 45px">
+                                <form method="post" enctype="multipart/form-data" style="flex: 1;margin: 0 5px;justify-content: center;align-items: center">
+                                    <input type="file" name="images" multiple style="line-height: 45px;">
+                                </form>
+                                <form method="post" enctype="multipart/form-data" style="float: left;margin: 0 50px">
+                                    <button id="button2"
+                                            style="width: 210px;background-color: #ffba00;line-height: 45px;text-align: center;align-items: center; justify-content: center; display: flex"
+                                            onclick="getImage()">
+                                        <i class="icon ion-ios-pie-outline"></i> &nbsp;&nbsp;导入穗粒检测模型
+                                    </button>
+                                </form>
+
+
+                                <form method="post" enctype="multipart/form-data" style="float: left;margin: 0 50px">
+
+                                    <button id="button2"
+                                            style="width: 200px;display: flex;background-color: #b8d4c5;height: 45px;line-height: 45px;text-align: center;align-items: center; justify-content: center; ">
+                                        <i class="icon ion-upload"></i>&nbsp;
+                                        导入完整粒分类模型
+                                    </button>
+
+                                </form>
+                                <form method="post" enctype="multipart/form-data" style="float: left;margin: 0 50px">
+
+                                    <button id="button2"
+                                            style="width: 130px;display: flex;color: white;background-color: #9370DB;height: 45px;line-height: 45px;text-align: center;align-items: center; justify-content: center; ">
+                                       <i class="icon icon-search"></i>
+                                        &nbsp;开始分析
+                                    </button>
+
+                                </form>
+
+                                <form method="post" enctype="multipart/form-data" style="float: left;margin: 0 50px">
+                                    <button onclick="location.reload()" value="重置" id="button1"
+                                            style="background-color: #e4453d;color: white;height: 45px; display: flex; align-items: center; justify-content: center; text-align: center; width: 100px;">
+                                        <i class="icon ion-ios-refresh-outline" style="margin-right: 5px;"></i> &nbsp;重置
+                                    </button>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-top: 20px;margin-bottom: 20px">
+            <div class="row">
+                {#                <div class="col-md-3" style="height: 450px">#}
+                {#                    <div class="card">#}
+                {#                        <div class="card-header" style="letter-spacing: 1px;background-color: #9BCD9B">#}
+                {#                            选择模型：#}
+                {#                        </div>#}
+                {#                        <div class="card-body" style="height: 400px">#}
+                {#                            <form method="post" enctype="multipart/form-data" id="options-form">#}
+                {#                                {% csrf_token %}#}
+                {#                                <div class="form-group">#}
+                {#                                    <form method="post" enctype="multipart/form-data">#}
+                {#                                        <select name="YOLO" style="width: 100%; height: 40px;margin-top: 8px"#}
+                {#                                                id="model">#}
+                {#                                            <option selected value="yolov8">YOLO 模型</option>#}
+                {#                                            <option value="yolov5">Yolov5</option>#}
+                {##}
+                {#                                        </select>#}
+                {#                                    </form>#}
+                {##}
+                {##}
+                {#                                </div>#}
+                {#                                <div class="form-group">#}
+                {#                                    <form method="post" enctype="multipart/form-data">#}
+                {#                                        <button id="button2"#}
+                {#                                                style="width: 120px;margin-top: 20px;background-color: #ffba00;line-height: 40px;text-align: center;align-items: center; justify-content: center; display: flex"#}
+                {#                                                onclick="getImage()">#}
+                {#                                            <i class="icon ion-ios-pie-outline"></i> &nbsp;&nbsp;穗粒计数#}
+                {#                                        </button>#}
+                {#                                    </form>#}
+                {#                                </div>#}
+                {#                            </form>#}
+                {##}
+                {##}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                <div class="col-md-12" style="height: 450px">
+                    <div class="card">
+                        <div class="card-header"
+                             style="display: flex;height: 50px;letter-spacing: 1px;background-color: #9BCD9B">
+                            <div style="height: 50px">
+                                穗粒性状结果展示：
+                            </div>
+
+                        </div>
+
+
+                        <div class="card-body"
+                             style="padding:0;margin: 0;height: 400px;justify-content: center; align-items: center;"
+                             id="imageTableBody">
+                            <div style="color: #c4c7ce;font-size: 32px;text-align: center;line-height: 400px">
+                                无数据
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#        <div class="col-md-12">#}
+        {#            <div class="row">#}
+        {#                <div class="col-md-12">#}
+        {#                    <div class="card">#}
+        {#                        <div class="card-header" style="letter-spacing: 1px;background-color: 	#FFE4C4">#}
+        {#                            性状分析：#}
+        {#                        </div>#}
+        {#                        <div class="card-body" style="height: 300px;justify-content: center; align-items: center;">#}
+        {#                            <div style="color: #c4c7ce;font-size: 32px;text-align: center;line-height: 300px">#}
+        {#                                无数据#}
+        {#                            </div>#}
+        {##}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+
+    </div>
+    <form method="post" enctype="multipart/form-data" style="margin-left: auto;margin-right: 20px">
+
+                                    <button id="button2"
+                                            style="width: 150px;display: flex;background-color: #009ACD;color: white;height: 45px;line-height: 45px;text-align: center;align-items: center; justify-content: center; ">
+                                        <i class="fas fa-download" style="color: white"></i>&nbsp;
+                                        下载CSV文件
+                                    </button>
+
+                                </form>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript">
+        function setActive(element) {
+            let items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function goToSpikeSum(element) {
+            setActive(element);
+            window.location.href = "/index";
+        }
+
+        function goToGrainClassification(element) {
+            setActive(element);
+            window.location.href = "/sort";
+            // 跳转到性状分析页面
+        }
+
+        function goToTraitAnalysis(element) {
+            setActive(element);
+            window.location.href = "/analyse";
+            // 跳转到批量处理页面
+        }
+
+        function goToUserCenter(element) {
+            setActive(element);
+            window.location.href = "/user_show";
+        }
+
+        // 页面加载时，根据当前URL设置选中样式
+        window.onload = function () {
+            let pathname = window.location.pathname;
+            let items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                let action = item.getAttribute('data-onclick');
+                if (action && window[action] && typeof window[action] === 'function') {
+                    item.addEventListener('click', () => {
+                        window[action](item);
+                    });
+                }
+                if (item.getAttribute('data-onclick').includes(pathname)) {
+                    setActive(item);
+                }
+            });
+        };
+    </script>
+    <script>
+        function getImage() {
+            let e = window.event || arguments[0]
+            e.preventDefault()
+            let fileInput = $('input[type=file]')[0]
+            let files = fileInput.files
+            let model = $('select[name=YOLO]').val()
+
+            let formData = new FormData()
+            formData.append('model', model)
+            console.log(model)
+            for (let i = 0; i < files.length; i++) {
+
+                formData.append('file', files[i])
+                console.log(files[i])
+            }
+            $.ajax({
+                url: "{% url 'upload-image' %}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response.number)
+
+                    // 清空表格内容
+                    $('#imageTableBody').empty();
+
+                    // 获取文件名列表
+                    var filenames = response.filenames_list;
+                    var numberList = response.number;  // Get the list of num values
+                    // 创建表格元素
+                    var table = document.createElement('table');
+                    table.className = 'table table-hover text-center';
+
+
+                    // 创建表头
+                    var thead = document.createElement('thead');
+                    var headerRow = document.createElement('tr');
+                    headerRow.style.height = '60px';
+
+                    var idHeader = document.createElement('th');
+                    idHeader.style.width = '40px';
+                    idHeader.textContent = 'ID';
+                    headerRow.appendChild(idHeader);
+
+                    var nameHeader = document.createElement('th');
+                    nameHeader.style.width = '200px';
+                    nameHeader.textContent = '图片名称';
+                    headerRow.appendChild(nameHeader);
+
+                    var previewHeader = document.createElement('th');
+                    previewHeader.textContent = '穗粒图片';
+                    headerRow.appendChild(previewHeader);
+
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+
+                    // 创建表体
+                    var tbody = document.createElement('tbody');
+
+                    for (var i = 0; i < filenames.length; i++) {
+                        var row = document.createElement('tr');
+                        row.style.height = '60px'; // 设置行高
+
+                        var idCell = document.createElement('td');
+                        idCell.textContent = i + 1;
+                        idCell.style.height = '60px';
+                        row.appendChild(idCell);
+
+                        var nameCell = document.createElement('td');
+                        nameCell.textContent = filenames[i];
+                        nameCell.style.height = '60px';
+                        row.appendChild(nameCell);
+
+                        var previewCell = document.createElement('td');
+                        previewCell.style.height = '60px';
+                        previewCell.style.maxHeight = '60px';
+                        previewCell.style.overflow = 'auto';
+                        previewCell.style.overflowY = 'scroll';
+                        var imgContainer = document.createElement('div'); // Create a container for each image
+                        imgContainer.style.height = '60px'; // Set the desired image container height
+                        for (var j = 1; j <= numberList[i]; j++) {
+                            var img = document.createElement('img');
+                            img.src = '../static/images_yolov5/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                            img.style.height = '30px';
+                            img.style.width = '30px';
+                            img.style.margin = '3px';
+
+                            imgContainer.appendChild(img); // Add the image to the container
+                            previewCell.appendChild(imgContainer); // Add the container to the previewCell
+                        }
+
+                        row.appendChild(previewCell);
+
+                        tbody.appendChild(row);
+                    }
+
+                    table.appendChild(tbody);
+
+                    // 将表格添加到页面中
+                    var tableContainer = document.getElementById('imageTableBody');
+                    tableContainer.appendChild(table);
+
+
+                }
+            })
+
+        }
+
+    </script>
+    <script>
+        // 获取图标、左侧导航栏元素和图标文本容器
+        const icon = document.querySelector(".el-icon-s-fold");
+        const leftBox = document.querySelector(".left-box");
+        const iconTextContainer = document.querySelector(".icon-text-container");
+        const fixedIndex = document.querySelector(".fixed_index");
+        // 初始状态下侧边栏是展开的
+        let isSidebarCollapsed = false;
+
+        // 添加点击事件监听器
+        icon.addEventListener("click", () => {
+            // 切换左侧导航栏的宽度,设置为展开状态
+            if (isSidebarCollapsed) {
+                leftBox.style.width = "280px";
+                iconTextContainer.style.marginLeft = "-20px"; // 设置margin-left属性
+                fixedIndex.style.left = "280px"; // 设置 fixed_index 的 left 属性
+                icon.classList.remove("el-icon-s-unfold");
+                icon.classList.add("el-icon-s-fold");
+                isSidebarCollapsed = false;
+            } else {
+                leftBox.style.width = "55px";
+                iconTextContainer.style.marginLeft = "10px"; // 设置margin-left属性
+                fixedIndex.style.left = "55px"; // 设置 fixed_index 的 left 属性
+                icon.classList.remove("el-icon-s-fold");
+                icon.classList.add("el-icon-s-unfold");
+                isSidebarCollapsed = true;
+            }
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,3 @@
+# Preserve the original test frontend bytes, including existing line endings.
+frontend/templates/** -text
+frontend/static/** -text

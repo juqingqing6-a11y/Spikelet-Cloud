@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>{% block title %}{% endblock %}</title>
+    <base href="/">
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <style>
+
+        a {
+            text-decoration: none;
+            color: white;
+
+        }
+
+        a:link {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:focus {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:active {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: white;
+        }
+
+        .add {
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            color: #ccc;
+            transition: color .25s;
+            position: relative;
+        }
+
+        .add::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 80px;
+            margin-left: -40px;
+            margin-top: -5px;
+            border-top: 10px solid;
+        }
+
+        .add::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 80px;
+            margin-left: -5px;
+            margin-top: -40px;
+            border-left: 10px solid;
+        }
+
+        .add:hover {
+            color: grey;
+        }
+
+    </style>
+</head>
+
+<body>
+<div style="display: flex;width: 100%;height: 50px;background-color: #4e555b">
+    <div style="width: 200px;height: 50px;margin-left: 20px;">
+        <span style="text-align: center;line-height: 50px">
+            <h3 style="color: gold;padding-top: 5px">
+                稻穗云端分析
+            </h3>
+        </span>
+    </div>
+    <div style="width: 200px;height: 50px;margin-left: 70%;padding-top: 2px">
+        <a class="" href="/">
+            <button type="button" class="btn btn-danger btn-lg">退出登录</button>
+        </a>
+
+    </div>
+</div>
+<div class="container_one">
+
+
+    <div class="left-box">
+        <ul>
+            <a class="" href="/spike_sum">
+                <li class="item active">
+
+                    <i class="icon icon-file"></i>
+                    穗粒计数
+
+                </li>
+            </a>
+            <li class="item">
+                <i class="icon icon-vault"></i>
+                性状分析
+            </li>
+            <li class="item">
+                <i class="icon icon-album"></i>
+                批量处理
+            </li>
+            <a class="" href="/user_show">
+                <li class="item">
+                    <i class="icon icon-like"></i>
+                    用户中心
+                </li>
+            </a>
+            <hr>
+            <li>
+                <i class="icon icon-gear"></i>
+                用户{{ username }}欢迎您!
+            </li>
+
+        </ul>
+
+    </div>
+    <div class="right-box">
+        {% block content %}
+
+
+        {% endblock %}
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../static/js/120.js"></script>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+{% block js %}{% endblock %}
+</body>
+
+</html>

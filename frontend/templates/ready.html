@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试yolov5和yolov7模型</title>
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .add {
+            border: 1px solid;
+            width: 300px;
+            color: #ccc;
+            transition: color .25s;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add::before,
+        .add::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .add::before {
+            width: 80px;
+            height: 10px;
+            border-top: 10px solid;
+        }
+
+        .add::after {
+            width: 10px;
+            height: 80px;
+            border-left: 10px solid;
+        }
+
+        .add:hover {
+            color: grey;
+        }
+
+        /* 设置上传的图像大小为300px x 300px */
+        #img_upload_show {
+            width: 300px;
+            height: 300px;
+            display: none; /* 隐藏图像 */
+        }
+    </style>
+</head>
+<body>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 300px; height: 400px;">
+                <div class="card-header" id="rechoice">
+                    <a title="上传单张图片" data-toggle="popover" data-trigger="hover"
+                       style="color: black; letter-spacing: 1px; font-weight: 540; font-size: 16px">上传图片：</a>
+                </div>
+                <!-- 修正了图像的样式，使其具有响应性，并添加了ID -->
+                <img id="img_upload_show" style="width: 100%; height: 350px;">
+                <div class="card-body add" id="add">
+                    <form method="post" style="width: 100%; height: 100%;" id="form1" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="file" name="file" class="filepath" onchange="handleSelected(this)" type="file"
+                               style="width: 100%; height: 100%; opacity: 0;">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <form method="post" enctype="multipart/form-data" id="options-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <select name="model" style="width: 100%; height: 40px; margin-top: 8px;" id="model">
+                        <option selected value="yolo">YOLO 模型</option>
+                        <option value="yolov7">Yolov7</option>
+                        <option value="yolov5">Yolov5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="btn" class="Judgement_index"
+                            style="width: 120px; margin-top: 20px; background-color: #ffba00; line-height: 40px; text-align: center; align-items: center; justify-content: center; display: flex;">
+                        穗粒计数
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 300px;height: 400px;">
+                <div class="card-header" style="display: flex;height: 50px;letter-spacing: 1px;">
+                    <div style="height: 50px;">
+                        穗粒计数结果展示：
+                    </div>
+                    <div style="height: 50px;width: 100px">
+                        <p id="result" style="white-space: nowrap;">{{ model_name }}</p>
+                    </div>
+                </div>
+
+
+                <div class="card-body"
+                     style="padding:0;margin: 0;text-align: center;line-height: 350px;height: 350px;"
+                     id="pic">
+                    <div style="color: #c4c7ce;font-size: 24px">
+                        无数据
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script type="text/javascript">
+    let add = document.getElementById('add');
+    let image = document.getElementById('img_upload_show');
+
+    function handleSelected(input) {
+        add.style.display = 'none';
+        image.style.display = 'block';
+
+
+        // 获取所选文件
+        let file = input.files[0];
+        console.log(file);
+        console.log(file.name);
+
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            image.src = e.target.result;
+
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 使用按钮的点击事件来阻止表单提交
+    document.getElementById('btn').addEventListener('click', function (e) {
+
+        e.preventDefault();
+        let selectedModel = $("#model option:selected").val();
+        console.log(selectedModel)
+        let formData = new FormData(document.getElementById('form1'));
+        let fileForm = $("#form1")[0]; // 获取上传文件的表单
+        let fileData = new FormData(fileForm); // 将上传文件的表单数据转换为FormData对象
+        formData.append('file', fileData.get('file')); // 将上传文件的FormData对象添加到主FormData对象中
+        // 添加 selectedModel 到 formData
+        formData.append('model', selectedModel);
+        console.log(formData)
+        // 在这里可以添加您的其他逻辑
+        $.ajax({
+            url: "{% url 'ready' %}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $('#result').html(`${response.model_name}`);
+
+                $('#pic').html(`<img src="../static/images/${response.result_pic}.jpg" alt="Detected Image" style="width: 100%;height: 100%;object-fit: contain">`);
+                // Load and display images from the image_names list
+                var imageContainer = $('#slick-slider'); // Get the container where images will be displayed
+                imageContainer.empty(); // Clear any existing content
+
+
+                for (var i = 1; i <= response.image_number; i++) {
+                    var imageUrl = `../static/images_${selectedModel}/${response.result_pic}/${i}.jpg`;
+                    console.log(imageUrl)
+                    var imgElement = `<img src="${imageUrl}" alt="Image ${i}" style="width: 30px;height: 30px;margin: 10px";>`;
+                    imageContainer.append(imgElement);
+                }
+
+
+            },
+            error: function () {
+                $('#result').html("Error: Could not upload image.");
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+</html>

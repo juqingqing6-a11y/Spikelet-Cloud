@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>批量处理</title>
+    <base href="/">
+
+    <!-- 引入字体图标 -->
+    <link rel="stylesheet" href="../static/css/fonts/font.css">
+    <link rel="stylesheet" href="../static/css/120.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.6/lib/theme-chalk/index.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+
+        }
+
+        a:link {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:focus {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:active {
+            text-decoration: none;
+            color: white;
+        }
+
+        a:visited {
+            text-decoration: none;
+            color: white;
+        }
+
+        {#.add {#}
+        {#    border: 1px solid;#}
+        {#    width: 300px;#}
+        {#    height: 300px;#}
+        {#    color: #ccc;#}
+        {#    transition: color .25s;#}
+        {#    position: relative;#}
+
+        .add {
+            border: 1px solid;
+            width: 300px;
+        {#height: 50%;#} color: #ccc;
+            transition: color .25s;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .add::before,
+        .add::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .add::before {
+            width: 80px;
+            height: 10px;
+            border-top: 10px solid;
+        }
+
+        .add::after {
+            width: 10px;
+            height: 80px;
+            border-left: 10px solid;
+        }
+
+
+        .add:hover {
+            color: grey;
+        }
+
+        .Judgement_index {
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+        .Judgement_index:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        .SortButton {
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+        }
+
+        .SortButton:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        #slick-slider {
+            max-height: 100px; /* 设置最大高度 */
+            overflow: auto; /* 添加滚动条 */
+        }
+
+        ul li {
+            font-size: 16px;
+        }
+
+        /* 初始状态下，fixed_index 的 left 属性为 280px，与侧边栏的宽度一致 */
+        .fixed_index {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            width: 100%;
+            height: 52px;
+            background-color: #e9ecef;
+            margin-left: 2px;
+            z-index: 999;
+            transition: left 0.5s ease; /* 添加 left 属性的过渡效果 */
+        }
+
+
+        /* 显示时的过渡效果 */
+        #mySvg.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+
+        #savg.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+        #ssv.show {
+            display: block;
+            animation: fadeIn 2s;
+        }
+
+        #myDiv.show {
+            animation: fadeIn 2s;
+
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 初始时将按钮置于禁用状态 */
+        #myDiv[disabled] {
+            opacity: 0.8;
+            pointer-events: none;
+            box-shadow: 0px 0px 0px 0px;
+
+        }
+
+
+        #chinese {
+            text-decoration: none;
+            color: #009ACD;
+        }
+
+        #english {
+            text-decoration: none;
+            color: #009ACD;
+        }
+
+        #chinese:hover {
+            color: #104E8B;
+            text-decoration: none;
+        }
+
+        #english:hover {
+            color: #104E8B;
+            text-decoration: none;
+        }
+
+        #danger:hover {
+            color: white;
+            background-color: white;
+        }
+
+        .button1 {
+            background-color: #b8d4c5;
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+        .file-input-container {
+            border: 1px;
+
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+        .file-input-container:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+        .button1:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+
+        #button2{
+            background-color: #b8d4c5;
+            border: 1px;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+
+        #button2:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+
+         #button1{
+            background-color: #b8d4c5;
+            border: 1px;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out; /* 添加平滑过渡效果 */
+
+        }
+
+
+        #button1:hover {
+            border: 2px solid #ebf0ee;
+        }
+
+
+        .table th,
+        .table td {
+            text-align: center; /* 居中显示表头和单元格内容 */
+        }
+
+        .table tbody tr {
+            height: 60px; /* 设置每一行的高度为60px */
+            text-align: center;
+        }
+
+        .table tbody tr td {
+            max-height: 60px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        #imageTableBody {
+            height: 400px;
+            max-height: 400px;
+            overflow: auto;
+            overflow-y: scroll;
+        }
+
+        /* 初始状态下，fixed_index 的 left 属性为 280px，与侧边栏的宽度一致 */
+        .fixed_index {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            width: 100%;
+            height: 52px;
+            background-color: #e9ecef;
+            margin-left: 2px;
+            z-index: 999;
+            transition: left 0.5s ease; /* 添加 left 属性的过渡效果 */
+        }
+        .disabled {
+            pointer-events: none; /* 禁用鼠标事件，包括悬停 */
+            background-color: #dededf !important; /* 重写按钮的背景颜色 */
+        }
+        .no-hover:hover {
+            border: 1px;
+            border-radius: 6px;
+            /* 添加需要的其他样式 */
+        }
+        .no-hover {
+            transition: none; /* 去掉过渡效果 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container_one">
+
+
+        <div class="left-box"
+             style="width: 280px;background-color: #3b7839;color: white;">
+
+            {#    <div class="left-box"#}
+            {#         style="width: 280px;background: linear-gradient(to bottom, #90EE90, #FFFF99);color: #000000">#}
+            <div style="margin-left: -20px;height: 53px;" class="icon-text-container">
+                <span style="text-align: center;line-height: 50px">
+
+{#                    <h3 style="padding-top: 8px">#}
+    {#                    <i class="icon ion-cloud" style="color: #1e7e34"></i>#}
+{#                        <i class="icon ion-planet" style="color: #fdd501;font-size: 30px"></i><span id="text">稻穗云端分析</span></h3>#}
+                    <h3 style="padding-top: 8px">
+{#                    <i class="icon ion-cloud" style="color: #1e7e34"></i>#}
+                    <img src="../static/image/logoo.png" style="width: 30px;height: 30px;transform: scaleX(-1);margin-right: 15px;"/><span id="text">稻穗云端分析</span></h3>
+
+                </span>
+                <hr style="width: 100%;margin: 0">
+            </div>
+            <ul>
+                <li class="item" data-onclick="goToSpikeSum">
+                    <i class="icon icon-file"></i>穗粒计数
+                </li>
+
+                <li class="item active" data-onclick="goToTraitAnalysis">
+                    <i class="icon icon-album"></i>批量处理
+                </li>
+                {% if user_info.role == '0' %}
+                    <li class="item " data-onclick="goToUserCenter">
+                        <i class="icon icon-like"></i>用户中心
+                    </li>
+                {% elif user_info.role == '1' %}
+                    <li class="item " data-onclick="goToUserCenter">
+                        <i class="icon icon-like"></i>个人中心
+                    </li>
+                {% endif %}
+                <li class="item " data-onclick="goToGrainClassification">
+                    <i class="icon icon-vault"></i>使用手册
+                </li>
+
+                <hr>
+
+                <li id="testAlert">
+                    <i class="icon icon-gear"></i>
+                    {{ username }}<span id="welcomeMessage" style="margin-left: 5px">欢迎您</span>
+                </li>
+            </ul>
+        </div>
+        <div class="right-box"
+             style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">
+            <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #e9ecef; margin-left: 2px;z-index: 999"
+                 class="fixed_index">
+
+                <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #ececed; margin-left: 2px;z-index: 999"
+                     class="fixed_index">
+                    <div style="height: 50px;width: 100%; display: flex; align-items: center;background-color: #ececed">
+                        <i class="el-icon-s-fold" style="font-size: 30px"></i>
+
+                        <div style="height: 50px;margin-left: 10px;background-color: #ececed;font-size: 18px;font-family: 黑体;flex-grow: 1;display: flex">
+                            <nav class="breadcrumb" style="background-color: #ececed;float: left">
+                                <a class="breadcrumb-item" href="/" style="color: black;">首页</a>
+
+                                <span class="breadcrumb-item" style="color: #708090">批量处理</span>
+
+                            </nav>
+                            <div class="dropdown align-right"
+                                     style="color: white;margin: auto;display: flex; align-items: center;justify-content: flex-end;width: 1100px;height: 45px"
+                                     id="setLeft">
+{#                                <img src="../static/image/logo.png" style="width: auto;height: 100%;">#}
+{#                                <img src="../static/image/logooo.png" style="margin-right: 20px;">#}
+
+                                    <ul style="list-style: none; padding: 0;margin: 0;display: flex;margin-right: 20px;font-size: 16px">
+                                        <li style="margin-right: 5px;"><a href="javascript:void(0);" onclick="switchToChinese()"
+                                                                          id="chinese"
+                                                                          style="text-decoration: underline">中文</a></li>
+                                        <li style="margin-right: 5px;"><a id="english" href="javascript:void(0);"
+                                                                          onclick="switchToEnglish()">/ English</a>
+                                        </li>
+
+
+                                    </ul>
+                                    <a class="btn btn-outline-danger" id="danger"
+                                       style="font-size: 16px; color: red"
+                                       href="{% url 'logout' %}" onclick="setLanguageToChinese()">退出登录</a>
+
+                                </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div style="background-color: white;width: auto;margin-top: 52px">
+
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header" style="display: flex;height: 50px;background-color: #9BCD9B">
+                                    <div style="height: 50px;color: black;letter-spacing: 1px;font-weight: 540;font-size: 16px" id="header1">1. 选择批量图片或选择文件夹:</div>
+
+                                </div>
+
+
+                                <div class="card-body" style="padding:0;margin: 0;height: 100px;float: left;text-align: center">
+                                    <div style="display: flex;flex-wrap: wrap;margin-top: 25px;">
+                                       <form method="post" enctype="multipart/form-data" style="flex: 1;width: 210px; height: 100%;justify-content: center;align-items: center">
+                                            {% csrf_token %}
+
+                                            <div class="file-input-container" style="width: 210px; height: 100%;display: inline-block;text-align: center;" id="file-input-batch">
+                                                <input type="file" id="file" name="images" multiple class="upload-btn" style="display: none; width: 100%; height: 100%">
+                                                <label for="file" class="file-input-trigger" type="button" id="file-input-label"
+                                                    style="margin: 0; padding: 8px; border-radius: 5px; border: 1px solid #3888C7;
+                                                     background-color: #3888C7; outline: none; color: #fff; cursor: pointer;
+                                                     letter-spacing: 1px; font-weight: 540; font-size: 18px;
+                                                     margin-right: 3px; width: 100%">
+                                                    <i class="el-icon-s-promotion" style="margin-right: 8px"></i><span id="sss" style="margin-left: 8px">上传图片序列</span></label>
+                                            </div>
+                                            <span id="upload-count" style="display: none;font-size: 16px"></span>
+                                            <div class="file-input-container" style="width: 190px; height: 100%;display: inline-block;text-align: center;" id="directory-input">
+                                                <input type="file" id="folder" name="images" multiple webkitdirectory directory style="display: none; width: 100%; height: 100%">
+                                                <label for="folder" class="file-input-trigger" type="button" id="directory-input-label"
+                                                    style="margin: 0; padding: 8px; border-radius: 5px; border: 1px solid #3888C7;
+                                                    background-color: #3888C7; outline: none; color: #fff; cursor: pointer;
+                                                    letter-spacing: 1px; font-weight: 540; font-size: 18px;
+                                                    width: 100%">
+                                                    <i class="el-icon-s-promotion" style="margin-right: 3px"></i><span id="ssss" style="margin-left: 8px">上传图片文件夹</span>
+                                                </label>
+                                            </div>
+                                            <span id="upload-directory" style="display: none;font-size: 16px"></span>
+
+
+                                        </form>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header" style="display: flex;height: 50px;background-color: #9BCD9B">
+                                    <div style="height: 50px;color: black;letter-spacing: 1px;font-weight: 540;font-size: 16px" id="header2">2. 选择适当的AI模型:</div>
+
+                                </div>
+
+
+                                <div class="card-body" style="height: 100px">
+                                    <form method="post" enctype="multipart/form-data" id="options-form">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <form method="post" enctype="multipart/form-data">
+                                                <select name="YOLO" style="width: 100%; height: 40px;margin-top: 8px"
+                                                        id="model">
+        {#                                            <option selected value="yolov8">YOLO 模型</option>#}
+         {#                                           <option selected value="yolov5">YOLOv5s</option>#}
+                                                    <option value="spike-yolo">Spikelet-Yolo</option>
+                                                    <option value="yolov8">Yolov8</option>
+                                                    <option value="yolov10">Yolov10</option>
+{#                                                    <option value="faster">Faster R-CNN</option>#}
+{#                                                    <option value="ssd">SSD</option>#}
+
+                                                </select>
+                                            </form>
+
+
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <div class="col-md-12" style="margin-top: 30px;height: 500px;flex: 0">
+                <div class="row">
+                    <div class="col-md-2" style="height: 450px">
+                        <div class="card">
+                            <div class="card-header" style="letter-spacing: 1px;background-color: #9BCD9B" id="header3">3. 批量分析:</div>
+                            <div class="card-body" style="height: 400px">
+                                <form method="post" enctype="multipart/form-data" id="options-form" style="display: flex;justify-content: center;align-items: center;text-align: center">
+                                    {% csrf_token %}
+
+                                    <div class="form-group" style="display: flex; flex-direction: column; ">
+                                        <form method="post" enctype="multipart/form-data" id="summer">
+                                            {% csrf_token %}
+                                            <button id="button2" data-toggle="tooltip" data-placement="top"
+
+                                                    style="width: 190px;background-color: #ffba00;text-align: center;
+                                                    align-items: center; justify-content: center; display: flex;height: 45px;line-height: 45px;margin-top: 120px;"
+                                                    onclick="getImage()">
+                                                <i class="icon ion-ios-pie-outline"></i><span id="summary" style="margin-left: 8px;color: white">批量处理</span>
+                                            </button>
+                                        </form>
+
+
+                                    </div>
+                                    <form method="post" enctype="multipart/form-data" style="float: left;margin-top: 20px" id="reset_div">
+                                        {% csrf_token %}
+                                        <button onclick="location.reload()" value="重置" class="button1" id="set"    ##
+                                                    style="width: 120px;background-color: #e4453d;color: white;height: 45px;
+                                                style="width: 120px;background-color: #e4453d;color: white;height: 45px;
+                                                display: flex; align-items: center; justify-content: center; text-align: center;margin-left: 40px;margin-top: 90px">
+                                            <i class="icon ion-ios-refresh-outline" ></i><span id="reset" style="margin-left: 8px">重置</span>
+                                        </button>
+                                    </form>
+
+                                </form>
+{#                            <img src="../static/ssd_batch_original/IMG_20220917_140720_random_vertical_flip.jpg">#}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10" style="height: 450px">
+                        <div class="card">
+                            <div class="card-header"
+                                 style="display: flex;height: 50px;letter-spacing: 1px;background-color: #FFE4C4">
+                                <div style="height: 50px" id="header4">4. 结果展示:</div>
+
+                            </div>
+
+
+                            <div class="card-body"
+                                 style="padding:0;margin: 0;height: 400px;justify-content: center; align-items: center;"
+                                 id="imageTableBody">
+                                <div style="color: #c4c7ce;font-size: 32px;text-align: center;line-height: 400px">无数据</div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin:0;top: -477px;right: -1260px;width: 300px;height: 45px" id="loadCSV">
+                <form method="post" enctype="multipart/form-data" style="float: left;margin-top: 30px" id="trait_div">
+                                            {% csrf_token %}
+                                            <button class="button1" id="button1" onclick="downloadCSV()"
+                                                    style="width: 300px;background-color:green;color: white;height: 45px; display: flex; align-items: center; justify-content: center; text-align: center;">
+
+                                                <?xml version="1.0" encoding="UTF-8"?><svg style="margin-right: 5px;color: white" width="24" height="24" viewBox="0 0 48 48"
+                                                                                           fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M44 11C44 9.34315 42.6569 8 41 8H7C5.34315 8 4 9.34315 4 11V20H44V11Z" fill="none" stroke="#fff" stroke-width="4"
+                                                      stroke-linecap="round" stroke-linejoin="round"/><path d="M4.1123 39.0301L16.2879 26.7293L22.8672 33.0301L30.9105 26L35.391 30.368"
+                                                                                                            stroke="#fff" stroke-width="4" stroke-linecap="round"
+                                                                                                            stroke-linejoin="round"/>
+                                                <path d="M44 18V37C44 38.6569 42.6569 40 41 40H12" stroke="#fff" stroke-width="4" stroke-linecap="round"
+                                                      stroke-linejoin="round"/><path d="M19.1118 14H37.1118" stroke="#fff" stroke-width="4" stroke-linecap="round"
+                                                                                     stroke-linejoin="round"/><path d="M11.1108 14H13.1108" stroke="#fff"
+                                                                                                                    stroke-width="4" stroke-linecap="round"
+                                                                                                                    stroke-linejoin="round"/><path d="M4 18V27"
+                                                                                                                                                   stroke="#fff"
+                                                                                                                                                   stroke-width="4" stroke-linecap="round"
+                                                                                                                                                   stroke-linejoin="round"/></svg><span id="trait" style="margin-left: 8px">下载批量图片的穗粒表型分析结果</span>
+    {#                                            <i class="icon ion-ios-refresh-outline" style="margin-right: 5px;"></i>#}
+
+                                            </button>
+                                        </form>
+            </div>
+
+            <div style="position: fixed; bottom: 0; left: 280px; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
+                color: black; font-size: 14px;">
+                <div style="margin-left: 600px; display: flex; align-items: center;">
+                    <img src="../static/image/logo.png" style="width: auto; height: 100%;">
+                    <img src="../static/image/logooo.png" style="margin-right: 20px; width: auto; height: 90%;">
+                    <div style="margin-left: 5px;">
+                        <span style="display: block;">Copyright © 2024 | The Zhou Laboratory</span>
+                        <span style="display: block;">All rights resvered, Ji.Zhou@NJAU.edu.cn</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js"></script>
+    <script>
+        function setLanguageToChinese() {
+            localStorage.setItem("language", "zh"); // 设置语言为中文
+        }
+    </script>
+    <script>
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage === "en") {
+            switchToEnglish();
+        } else {
+            switchToChinese();
+        }
+        function switchToEnglish() {
+            let testAlertElement = document.getElementById('testAlert');
+            let username = "{{ username }}"; // 用实际的用户名替换这里的占位符
+            testAlertElement.innerHTML = `<i class="icon icon-gear" style="color: white"></i> <span id="welcomeMessage" style="margin-right: 5px">欢迎您</span>${username}`;
+            let english = document.getElementById('english');
+            english.style.textDecoration = 'underline';
+             english.style.color = '	#0000FF';
+            let chinese = document.getElementById('chinese');
+            chinese.style.textDecoration = 'none';
+            chinese.style.color = '#009ACD';
+            let setLeft = document.getElementById('setLeft');
+            setLeft.style.width = '970px';
+            let fileBatch = document.getElementById("file-input-batch");
+            fileBatch.style.width = '275px';
+            let reset = document.getElementById("reset");
+            reset.textContent = "Reset analysis";
+            {#reset.style.width = '230px';#}
+            // 定义一个对象，将中文和对应的英文文本映射起来
+            let translationMap = {
+                "稻穗云端分析": "The RSPAS platform",
+                "首页": "Home page",
+                "穗粒计数": "Spikelet counting",
+                "批量处理": "Batch processing",
+                "用户中心": "User settings",
+                "使用手册": "User manual",
+                "无数据": "No Date",
+                "编号":"id",
+                "图片名称":"Image name",
+                "初始图片":"Uploaded image",
+                "处理后图片":"Processed images",
+                "每穗粒数":"No. of spikelets",
+                "完整穗粒数":"No. of whole spikelets identified",
+                "完整穗粒图片":"Images of whole spikelets",
+                "退出登录": "Log out",
+                "欢迎您": "Welcome user",
+                "个人中心":"User center"
+
+                // 添加更多需要翻译的文本
+            };
+
+
+            // 遍历页面上的所有元素，将中文文本替换为英文
+            let elements = document.getElementsByTagName('*');
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                    elements[i].textContent = translationMap[elements[i].textContent];
+                }
+            }
+            let listItems = document.querySelectorAll('li');
+            listItems.forEach(item => {
+                let textNode = item.childNodes[2]; // 获取文本节点
+                if (textNode) {
+                    let text = textNode.textContent.trim();
+                    if (translationMap[text]) {
+                        textNode.textContent = translationMap[text]; // 替换文本节点的内容
+                    }
+                }
+            });
+            let textElement = document.getElementById('text');
+
+            if (textElement) {
+                let text = textElement.textContent.trim();
+                if (translationMap[text]) {
+                    textElement.textContent = translationMap[text];
+                }
+            }
+            textElement.style.fontSize = '21px';
+            let welcomeMessage = document.getElementById('welcomeMessage');
+            if (welcomeMessage) {
+                let text = welcomeMessage.textContent.trim();
+                if (translationMap[text]) {
+                    welcomeMessage.textContent = translationMap[text];
+                }
+            }
+            let sort = document.getElementById('sort');
+            if (sort) {
+                let text = sort.textContent.trim();
+                if (translationMap[text]) {
+                    sort.textContent = translationMap[text];
+                }
+            }
+
+            let fileIn = document.getElementById('sss');
+            if (fileIn) {
+                    fileIn.textContent = "Upload the image series";
+
+            }
+            let fileLabel =document.getElementById('file-input-label');
+            if (fileLabel){
+                fileLabel.style.width = '275px';
+            }
+            let DirecoryIn = document.getElementById('ssss');
+            if (DirecoryIn) {
+                    DirecoryIn.textContent = "The image folder for uploading";
+
+
+            }
+            let DirectoryLabel = document.getElementById('directory-input-label');
+            DirectoryLabel.style.width = '330px';
+            let summary = document.getElementById('summary');
+            if (summary) {
+                    summary.textContent = "Batch processing";
+
+            }
+            let header1 = document.getElementById('header1');
+            if (header1){
+                header1.textContent = "1. Upload an image series or select a folder with images:";
+            }
+            let header2 = document.getElementById('header2');
+            if (header2){
+                header2.textContent = "2. Choose an AI model:";
+            }
+            let header3 = document.getElementById('header3');
+            if (header3){
+                header3.textContent = "3. Batch processing with traits analysis:";
+                header3.style.padding = '0.75rem 0.2rem';
+            }
+            let header4 = document.getElementById('header4');
+            if (header4){
+                header4.textContent = "4. Results:";
+            }
+            // 选择按钮元素
+            let summerButton = document.getElementById('button2');
+
+
+            // 修改按钮的宽度
+            summerButton.style.width = '220px'; // 在这里设置新的宽度，如 '200px'
+
+            let trait = document.getElementById('trait');
+            if (trait) {
+                    trait.textContent = "Download analysis results";
+
+            }
+            {#trait.style.width = '340px';#}
+
+            let traitButton = document.getElementById('button1');
+
+
+            // 修改按钮的宽度
+            traitButton.style.width = '340px'; // 在这里设置新的宽度，如 '200px'
+
+            let loadCSV = document.getElementById("loadCSV");
+            loadCSV.style.right = '-1240px';
+
+            let set = document.getElementById("set");
+            set.style.width = '230px';
+            set.style.marginLeft = '0px';
+
+            let resetDiv = document.getElementById("reset_div");
+            resetDiv.style.marginLeft = '-15px';
+
+
+            localStorage.setItem("language", "en"); // 存储语言状态为英文
+        }
+
+            // 添加类似的函数，用于切换回中文
+        function switchToChinese() {
+            let testAlertElement = document.getElementById('testAlert');
+            let username = "{{ username }}"; // 用实际的用户名替换这里的占位符
+            testAlertElement.innerHTML = `<i class="icon icon-gear" style="color: white"></i>${username} <span id="welcomeMessage" style="margin-left: 5px">Welcome user</span> `;
+            let english = document.getElementById('english');
+            english.style.textDecoration = 'none';
+            english.style.color = '#009ACD';
+            let chinese = document.getElementById('chinese');
+            chinese.style.textDecoration = 'underline';
+            chinese.style.color = '	#0000FF';
+
+            let setLeft = document.getElementById('setLeft');
+            setLeft.style.width = '1100px';
+            let fileBatch = document.getElementById("file-input-batch");
+            fileBatch.style.width = '210px';
+            let reset = document.getElementById("reset");
+            reset.textContent = "重置";
+
+            let translationMap = {
+                "The RSPAS platform": "稻穗云端分析",
+                "Home page": "首页",
+                "Spikelet counting": "穗粒计数",
+                "Batch processing": "批量处理",
+                "User settings": "用户中心",
+                "User manual": "使用手册",
+
+                "No Date": "无数据",
+
+                "Log out": "退出登录",
+                "Welcome user":"欢迎您" ,
+                "User center":"个人中心",
+                "id":"编号",
+                "Image name":"图片名称",
+                "Uploaded image":"初始图片",
+                "Processed images":"处理后图片",
+                "No. of spikelets":"每穗粒数",
+                "No. of whole spikelets identified":"完整穗粒数",
+                "Images of whole spikelets":"完整穗粒图片",
+
+                {#"Batch Upload Images":"批量上传图片"#}
+                // 添加更多需要翻译的文本
+            };
+
+            let elements = document.getElementsByTagName('*');
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i].textContent && translationMap[elements[i].textContent]) {
+                    elements[i].textContent = translationMap[elements[i].textContent];
+                }
+            }
+            let listItems = document.querySelectorAll('li');
+            listItems.forEach(item => {
+                let textNode = item.childNodes[2]; // 获取文本节点
+                if (textNode) {
+                    let text = textNode.textContent.trim();
+                    if (translationMap[text]) {
+                        textNode.textContent = translationMap[text]; // 替换文本节点的内容
+                    }
+                }
+            });
+            let textElement = document.getElementById('text');
+
+            if (textElement) {
+                let text = textElement.textContent.trim();
+                if (translationMap[text]) {
+                    textElement.textContent = translationMap[text];
+                }
+            }
+            textElement.style.fontSize = '30px';
+            let sort = document.getElementById('sort');
+            if (sort) {
+                let text = sort.textContent.trim();
+                if (translationMap[text]) {
+                    sort.textContent = translationMap[text];
+                }
+            }
+            let header1 = document.getElementById('header1');
+            if (header1){
+                header1.textContent = "1. 选择批量图片或选择文件夹:";
+            }
+            let fileLabel =document.getElementById('file-input-label');
+            if (fileLabel){
+                fileLabel.style.width = '100%';
+            }
+            let header2 = document.getElementById('header2');
+            if (header2){
+                header2.textContent = "2. 选择适当的AI模型:";
+            }
+            let header3 = document.getElementById('header3');
+            if (header3){
+                header3.textContent = "3. 批量分析:";
+                header3.style.padding = '0.75rem 1.25rem';
+            }
+            let header4 = document.getElementById('header4');
+            if (header4){
+                header4.textContent = "4. 结果展示:";
+            }
+            let fileIn = document.getElementById('sss');
+            if (fileIn) {
+                    fileIn.textContent = "上传图片序列";
+
+
+            }
+            let DirectoryIn = document.getElementById('ssss');
+            if (DirectoryIn) {
+                    DirectoryIn.textContent = "上传图片文件夹";
+
+
+            }
+            let DirectoryLabel = document.getElementById('directory-input-label');
+            DirectoryLabel.style.width = '250px';
+            let summary = document.getElementById('summary');
+            if (summary) {
+
+                summary.textContent = "批量处理";
+
+            }
+            {#let analyse = document.getElementById('analyse');#}
+            {#if (analyse) {#}
+            {#        analyse.textContent = "3. 完整粒提取";#}
+            {##}
+
+            let trait = document.getElementById('trait');
+            if (trait) {
+                    trait.textContent = "下载批量图片的穗粒表型分析结果";
+
+            }
+            {#trait.style.width = '300px';#}
+            let summerButton = document.getElementById('button2');
+
+
+            // 修改按钮的宽度
+            summerButton.style.width = '150px'; // 在这里设置新的宽度，如 '200px'
+
+            let traitButton = document.getElementById('button1');
+
+
+            // 修改按钮的宽度
+            traitButton.style.width = '300px'; // 在这里设置新的宽度，如 '200px'
+
+            let loadCSV = document.getElementById("loadCSV");
+            loadCSV.style.right = '-1260px';
+
+            let set = document.getElementById("set");
+            set.style.width = '120px';
+            set.style.marginLeft = '40px';
+
+
+            let resetDiv = document.getElementById("reset_div");
+            resetDiv.style.marginLeft = '0px';
+
+            localStorage.setItem("language", "zh"); // 存储语言状态为中文
+        }
+
+
+    </script>
+    <script>
+        let fileInput = document.getElementById('file');
+        let folderInput = document.getElementById('folder');
+        let folderLabel =document.getElementById('directory-input-label');
+        let fileLabel =document.getElementById('file-input-label');
+        document.getElementById('file').addEventListener('change', function () {
+            folderInput.disabled = true;
+            folderLabel.style.backgroundColor = '#dededf';
+            folderInput.classList.add('disabled'); // 添加CSS类
+            folderInput.classList.add('no-hover'); // 添加CSS类
+            let uploadCount = document.getElementById('upload-count');
+            uploadCount.style.display= 'inline-block';
+            //uploadCount.style.display = 'grid';
+            if (fileInput.files) {
+                // 判断语言
+                const storedLanguage = localStorage.getItem("language");
+
+                if (storedLanguage === "en") {
+                    //uploadCount.textContent = `Uploading successful`;
+                    uploadCount.textContent = `${fileInput.files.length} images uploaded`;
+                } else {
+                    if (fileInput.files) {
+                        uploadCount.textContent = `${fileInput.files.length}张图片已经上传`;
+                    }
+                }
+            }
+        });
+        document.getElementById('folder').addEventListener('change', function () {
+            fileInput.disabled = true;
+            fileLabel.style.backgroundColor = '#dededf';
+            fileInput.classList.add('disabled'); // 添加CSS类
+            fileInput.classList.add('no-hover'); // 添加CSS类
+            let uploadCount = document.getElementById('upload-directory');
+            // uploadCount.style.display = 'inline-block';
+            uploadCount.style.display = 'grid';
+            if (folderInput.files && folderInput.files.length > 0) {
+                // 判断语言
+                const storedLanguage = localStorage.getItem("language");
+
+                if (storedLanguage === "en") {
+                    uploadCount.textContent = `${folderInput.files.length} images uploaded`;
+                } else {
+                    if (fileInput.files) {
+                        uploadCount.textContent = `${folderInput.files.length}张图片已经上传`;
+                    }
+                }
+
+            }
+            fileInput.disabled = true;
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        function setActive(element) {
+            let items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        function goToSpikeSum(element) {
+        setActive(element);
+        window.location.href = "/index";
+        }
+
+        function goToGrainClassification(element) {
+            setActive(element);
+            window.location.href = "/use";
+            // 跳转到性状分析页面
+        }
+
+        function goToTraitAnalysis(element) {
+            setActive(element);
+            window.location.href = "/atest";
+            // 跳转到批量处理页面
+        }
+
+        function goToUserCenter(element) {
+            setActive(element);
+            {% if user_info.role == '0' %}
+                window.location.href = "/user_show";
+            {% elif user_info.role == '1' %}
+                window.location.href = "/user_single";
+            {% endif %}
+        }
+
+        // 页面加载时，根据当前URL设置选中样式
+        window.onload = function () {
+            let pathname = window.location.pathname;
+            let items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                let action = item.getAttribute('data-onclick');
+                if (action && window[action] && typeof window[action] === 'function') {
+                    item.addEventListener('click', () => {
+                        window[action](item);
+                    });
+                }
+                if (item.getAttribute('data-onclick').includes(pathname)) {
+                    setActive(item);
+                }
+            });
+        };
+    </script>
+    <script>
+        function getImage() {
+            // 检查是否选择了文件
+            let fileInput = $('input[type=file]')[0];
+            let folderInput = $('input[type=file]#folder')[0];
+            if (fileInput.files.length === 0 && folderInput.files.length === 0) {
+                alert("请选择要上传的图片或者文件夹");
+            }
+
+            let e = window.event || arguments[0]
+            e.preventDefault()
+            let files;
+            if (fileInput.files.length >0){
+                files = fileInput.files;
+            }else if(folderInput.files.length>0){
+                files = folderInput.files;
+            }
+
+            let model = $('select[name=YOLO]').val()
+
+            let formData = new FormData()
+            formData.append('model', model)
+            console.log(model)
+            for (let i = 0; i < files.length; i++) {
+
+                formData.append('file', files[i])
+                console.log(files[i])
+            }
+            $.ajax({
+                url: "{% url 'upload-image' %}",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log(response.number);
+                    console.log(response.filenames_list);
+                    console.log(response.s😄um_list);
+                    console.log(response.filenames);
+
+                    // 清空表格内容
+                    $('#imageTableBody').empty();
+
+                    // 获取文件名列表
+                    let filenames = response.filenames_list;
+                    let numberList = response.number;  // Get the list of num values
+                    // 创建表格元素
+                    let table = document.createElement('table');
+                    table.className = 'table table-hover text-center';
+
+
+                    const storedLanguage = localStorage.getItem("language");
+
+                    // 创建表头
+                    let thead = document.createElement('thead');
+                    let headerRow = document.createElement('tr');
+                    headerRow.style.height = '60px';
+
+                    let idHeaderText = (storedLanguage === "en") ? 'id' : '编号';
+                    let nameHeaderText = (storedLanguage === "en") ? 'Image name' : '图片名称';
+                    let firstHeaderText = (storedLanguage === "en") ? 'Uploaded image' : '初始图片';
+                    let processHeaderText = (storedLanguage === "en") ? 'Processed images' : '处理后图片';
+                    let totalHeaderText = (storedLanguage === "en") ? 'No. of spikelets' : '每穗粒数';
+                    let completeHeaderText = (storedLanguage === "en") ? 'No. of whole spikelets identified' : '完整穗粒数';
+                    let previewHeaderText = (storedLanguage === "en") ? 'Images of whole spikelets' : '完整穗粒图片';
+
+                    // 创建表头元素
+                    let idHeader = createHeader('60px', idHeaderText);
+                    let nameHeader = createHeader('200px', nameHeaderText);
+                    let firstHeader = createHeader('100px', firstHeaderText);
+                    let processHeader = createHeader('200px', processHeaderText);
+                    let totalHeader = createHeader('150px', totalHeaderText);  // 设置为 'auto' 或具体的宽度
+                    let completeHeader = createHeader('250px', completeHeaderText);  // 设置为 'auto' 或具体的宽度
+                    let previewHeader = createHeader('auto', previewHeaderText);  // 设置为 'auto' 或具体的宽度
+
+                    // 将表头元素添加到表头行
+                    headerRow.appendChild(idHeader);
+                    headerRow.appendChild(nameHeader);
+                    headerRow.appendChild(firstHeader);
+                    headerRow.appendChild(processHeader);
+                    headerRow.appendChild(totalHeader);
+                    headerRow.appendChild(completeHeader);
+                    headerRow.appendChild(previewHeader);
+
+                    // 将表头行添加到表头
+                    thead.appendChild(headerRow);
+                    // 将表头添加到表格
+                    table.appendChild(thead);
+
+                    // 创建表头元素的函数
+                    function createHeader(width, textContent) {
+                        let header = document.createElement('th');
+                        header.style.width = width;
+                        header.textContent = textContent;
+                        return header;
+                    }
+
+
+                    // 创建表体
+                    let tbody = document.createElement('tbody');
+
+                    for (let i = 0; i < filenames.length; i++) {
+                        let row = document.createElement('tr');
+                        row.style.height = '60px'; // 设置行高
+
+                        let idCell = document.createElement('td');
+                        idCell.textContent = i + 1;
+                        idCell.style.height = '60px';
+                        idCell.style.verticalAlign = 'middle';
+                        row.appendChild(idCell);
+
+                        let nameCell = document.createElement('td');
+                        nameCell.textContent = `test${i+1}`;
+                        nameCell.style.height = '60px';
+                        nameCell.style.verticalAlign = 'middle';
+                        {#nameCell.style.width = '200px';#}
+                        row.appendChild(nameCell);
+
+                        let firstImageCell = document.createElement('td');
+                        let firstImage = document.createElement('img');
+                        if (model === 'yolov5'){
+                                firstImage.src = '../batch/' + filenames[i];
+                        }else if (model === 'spike-yolo'){
+                                firstImage.src = '../static/batch_yolo/' + filenames[i];
+                        }else if (model === 'yolov8'){
+                                firstImage.src = '../static/batch_yolov8/' + filenames[i];
+                        }else if (model === 'yolov10'){
+                                firstImage.src = '../static/batch_yolov10/' + filenames[i];
+                        }
+                        {% comment %}else if (model === 'faster'){
+                                firstImage.src = '../static/faster_batch_original/' + filenames[i];
+                        }else if (model === 'ssd'){
+                                firstImage.src = '../static/ssd_batch_original/' + filenames[i];
+                        }{% endcomment %}
+                        {#firstImage.src = 'img/1/' + filenames[i]; // 设置初始图片的路径#}
+                        firstImage.style.width = '170px'
+                        firstImage.style.height = '310px';
+                        {#firstImage.style.maxWidth = '60px'; // 设置图片的最大宽度#}
+                        {#firstImage.style.width = '200px';#}
+                        firstImageCell.appendChild(firstImage);
+                        row.appendChild(firstImageCell);
+
+                        let processImageCell = document.createElement('td');
+                        let processImage = document.createElement('img');
+                        if (model === 'yolov5'){
+                                processImage.src = '../static/images_v5/' + filenames[i];
+                        }else if (model === 'spike-yolo'){
+                                let filenamePrefix = filenames[i].split('.')[0];
+                                processImage.src = '../static/batch_yolo_result/' + filenamePrefix + '/' + filenames[i];
+                        }else if (model === 'yolov8'){
+                                let filenamePrefix = filenames[i].split('.')[0];
+                                processImage.src = '../static/batch_yolov8_result/' + filenamePrefix + '/' + filenames[i];
+                        }else if (model === 'yolov10'){
+                                let filenamePrefix = filenames[i].split('.')[0];
+                                processImage.src = '../static/batch_yolov10_result/' + filenamePrefix + '/' + filenames[i];
+                        }
+                        {% comment %}else if (model === 'faster'){
+                                processImage.src = '../static/faster_batch/' + filenames[i];
+                        }else if (model === 'ssd'){
+                                processImage.src = '../static/ssd_batch/' + filenames[i];
+                        }{% endcomment %}
+                        {#processImage.src = 'img/2/' + filenames[i]; // 设置处理后图片的路径#}
+                        processImage.style.width = '170px'
+                        processImage.style.height = '310px';
+                        {#processImage.style.maxWidth = '60px'; // 设置图片的最大宽度#}
+                        processImageCell.appendChild(processImage);
+                        row.appendChild(processImageCell);
+
+                         let totalCell = document.createElement('td');
+                        // 设置 "计数结果" 列的内容，根据后端传递的结果
+                        totalCell.textContent = response.number[i]; // 根据后端返回的数据来显示计数结果
+                        totalCell.style.width = '150px';
+                        totalCell.style.verticalAlign = 'middle';
+                        row.appendChild(totalCell);
+
+                        let completeCell = document.createElement('td');
+                        // 设置 "计数结果" 列的内容，根据后端传递的结果
+                        completeCell.textContent = response.sum_list[i]; // 根据后端返回的数据来显示计数结果
+                        completeCell.style.width = '250px';
+                        completeCell.style.verticalAlign = 'middle';
+                        row.appendChild(completeCell);
+
+                        let previewCell = document.createElement('td');
+                        previewCell.style.height = '60px';
+                        previewCell.style.maxHeight = '60px';
+                        previewCell.style.overflow = 'auto';
+                        previewCell.style.overflowY = 'scroll';
+                        let imgContainer = document.createElement('div'); // Create a container for each image
+                        imgContainer.style.height = '60px'; // Set the desired image container height
+                        for (let j = 1; j <= numberList[i]; j++) {
+                            let img = document.createElement('img');
+                            if (model === 'yolov5'){
+                                img.src = '../static/complete_yolov5_batch/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function () {
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }else if (model === 'spike-yolo'){
+                                img.src = '../static/batch_yolo_complety/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function () {
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }else if (model === 'yolov8') {
+                                img.src = '../static/batch_yolov8_complety/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function (){
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }else if (model === 'yolov10') {
+                                img.src = '../static/batch_yolov10_complety/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function (){
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }
+                            {% comment %}else if (model === 'faster'){
+                                img.src = '../static/complete_faster_batch/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function () {
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }else if (model === 'ssd'){
+                                img.src = '../static/complete_ssd/' + filenames[i].split('.')[0] + '/' + j + '.jpg';
+                                // 使用onerror事件检测图片是否加载成功
+                                img.onerror = function () {
+                                    // 图片加载失败时，移除该<img>元素
+                                    imgContainer.removeChild(this);
+                                };
+                            }{% endcomment %}
+
+
+                            img.style.height = '30px';
+                            img.style.width = '30px';
+                            img.style.margin = '3px';
+
+                            imgContainer.appendChild(img); // Add the image to the container
+                            previewCell.appendChild(imgContainer); // Add the container to the previewCell
+                        }
+
+                        row.appendChild(previewCell);
+
+                        tbody.appendChild(row);
+                    }
+
+                    table.appendChild(tbody);
+
+                    // 将表格添加到页面中
+                    let tableContainer = document.getElementById('imageTableBody');
+                    tableContainer.appendChild(table);
+
+
+                },
+
+            })}
+
+
+    </script>
+    <script>
+        // 获取图标、左侧导航栏元素和图标文本容器
+        const icon = document.querySelector(".el-icon-s-fold");
+        const leftBox = document.querySelector(".left-box");
+        const iconTextContainer = document.querySelector(".icon-text-container");
+        const fixedIndex = document.querySelector(".fixed_index");
+        // 初始状态下侧边栏是展开的
+        let isSidebarCollapsed = false;
+
+        // 添加点击事件监听器
+        icon.addEventListener("click", () => {
+            // 切换左侧导航栏的宽度,设置为展开状态
+            if (isSidebarCollapsed) {
+                leftBox.style.width = "280px";
+                iconTextContainer.style.marginLeft = "-20px"; // 设置margin-left属性
+                fixedIndex.style.left = "280px"; // 设置 fixed_index 的 left 属性
+                icon.classList.remove("el-icon-s-unfold");
+                icon.classList.add("el-icon-s-fold");
+                isSidebarCollapsed = false;
+            } else {
+                leftBox.style.width = "55px";
+                iconTextContainer.style.marginLeft = "10px"; // 设置margin-left属性
+                fixedIndex.style.left = "55px"; // 设置 fixed_index 的 left 属性
+                icon.classList.remove("el-icon-s-fold");
+                icon.classList.add("el-icon-s-unfold");
+                isSidebarCollapsed = true;
+            }
+        });
+    </script>
+    <script>
+        function downloadCSV(){
+            let e = window.event || arguments[0];
+            e.preventDefault();
+            $.ajax({
+                url: "/download/",  // 后端视图的URL
+                method: "GET",
+                // #dataType: "text",    原始的代码
+                xhrFields:{
+                    responseType: 'blob'     //强制jQuery处理二进制数据 对应原始代码的 dataType: "text"
+                },
+                success: function(data) {
+                    // 创建一个临时链接并模拟点击来下载文件
+                    // let blob = new Blob([data], { type: "text/csv" });   //更改下载的type (原始的代码)
+                    //let blob = new Blob([data], { type: "application/zip" });   //   原始的代码
+                    //let url = window.URL.createObjectURL(blob);                 //   原始的代码
+                    let url = window.URL.createObjectURL(data);  //新的代码
+                    let a = document.createElement("a");
+                    a.href = url;
+                    // a.download = "batches_data.csv";    //更改下载的文件名  初始为下载的是csv表格 (原始的代码)
+                    a.download = "BatchProcessTraits.zip";    //更改下载的文件名  现在下载的是zip压缩包
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);   //增加的
+                    window.URL.revokeObjectURL(url);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

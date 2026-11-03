@@ -1,5 +1,9 @@
 # Rice Grain Phenotyping Analysis System
 
+## 前端开发交接（2026-11-03）
+
+测试环境的完整前端快照现位于 [`frontend/`](frontend/README.md)：包含 Django HTML 模板、JavaScript、CSS、字体、界面图片和使用手册，以及页面入口、接口约定和文件哈希清单。前端优化人员请从 [交接说明](frontend/README.md) 开始；这些页面需要配合现有 Django 后端联调。本仓库原有模型代码及研究说明保留在下方。
+
 Jie Zhou<sup>1*</sup>, Min Zhang<sup>1</sup>, Ji Zhou<sup>1,2*</sup>
 
 <sup>1</sup>State Key Laboratory of Crop Genetics & Germplasm Enhancement, College of Agriculture, Academy for Advanced Interdisciplinary Studies, Jiangsu Collaborative Innovation Center for Modern Crop Production Co-sponsored by Province and Ministry, Nanjing Agricultural University, Nanjing 210095, China;
