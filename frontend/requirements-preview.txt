@@ -1,0 +1,2 @@
+# Python 3.9 compatibility; for loopback-only visual preview, not a deployed backend.
+Django==4.2.30

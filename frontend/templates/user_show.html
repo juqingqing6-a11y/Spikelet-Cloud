@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}RGPAS · 稻穗表型分析{% endblock %}</title>
     <base href="/">
     {% block css %}
 
@@ -127,9 +127,11 @@
 
     </style>
 
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
+    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
 </head>
 
-<body>
+<body class="research-ui research-app research-support">
 
 <div class="container_one">
 
@@ -148,7 +150,8 @@
             <hr style="width: 100%;margin: 0">
         </div>
 
-        <ul>
+        <div class="research-nav-label" data-ui-cn="研究工作台" data-ui-en="WORKSPACE">研究工作台</div>
+            <ul>
             <li class="item" data-onclick="goToSpikeSum">
                 <i class="icon icon-file" style="color: white"></i>穗粒计数
             </li>
@@ -186,6 +189,7 @@
                 {{ username }}<span id="welcomeMessage" style="margin-left: 5px">欢迎您</span>
             </li>
         </ul>
+    <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
     </div>
 
     <div class="right-box"
@@ -291,7 +295,7 @@
             </table>
         </div>
 
-        <div style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
+        <div class="research-footer" style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
                 color: black; font-size: 14px;">
                 <div style="margin-left: 30%; display: flex; align-items: center;">
                 <img src="../static/image/logo.png" style="width: auto; height: 100%;">

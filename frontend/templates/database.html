@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <title>种子资源库</title>
     <base href="/">
@@ -388,9 +388,11 @@
 
 
     </style>
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
+    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
 </head>
 
-<body>
+<body class="research-ui research-app research-support research-database">
 
 <div class="container_one">
 
@@ -414,6 +416,7 @@
             <hr style="width: 100%;margin: 0">
         </div>
         {% block ul %}
+            <div class="research-nav-label" data-ui-cn="研究工作台" data-ui-en="WORKSPACE">研究工作台</div>
             <ul>
                 <li class="item" data-onclick="goToSpikeSum">
                     <i class="icon icon-file" style="color: white"></i>穗粒计数
@@ -457,6 +460,7 @@
         {% endblock %}
 
 
+    <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
     </div>
     <div class="right-box"
          style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">
@@ -501,7 +505,8 @@
 
             </div>
 
-            <div style="background-color: white; width: 100%; margin-top: 25px">
+            <div class="research-catalog-intro" style="background-color: white; width: 100%; margin-top: 25px">
+                {% include "partials/research-heading.html" with research_title_cn="种质资源图谱" research_title_en="Rice genotype gallery" research_description_cn="浏览稻米图像与种质信息，连接表型观察与资源检索。" research_description_en="Explore images and genotype records for your research." research_mode_cn="资源浏览" research_mode_en="RESOURCE GALLERY" research_hide_workflow=True %}
 
                 <div class="col-md-12" style="margin-top: 25px; margin-left: auto; margin-right: auto;
                 background-color: white; height: 50px; width: 450px">
@@ -596,6 +601,8 @@
                                 </a>
                                 <h4>{{ image.gpname }}</h4>
                             </div>
+                        {% empty %}
+                            <div class="research-catalog-empty"><img src="/static/image/research-empty.svg" alt="" width="64" height="64"><p data-ui-cn="暂无可展示的资源" data-ui-en="No resources to display.">暂无可展示的资源</p><small data-ui-cn="请尝试调整检索条件。" data-ui-en="Try a different genotype ID.">请尝试调整检索条件。</small></div>
                         {% endfor %}
                     </div>
                 </div>
@@ -659,7 +666,7 @@
             <!-- 核心内容区域结束 -->
 
 
-            <div style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
+            <div class="research-footer" style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
                 color: black; font-size: 14px;">
                 <div style="margin-left: 30%; display: flex; align-items: center;">
                     <img src="../static/image/logo.png" style="width: auto; height: 100%;">

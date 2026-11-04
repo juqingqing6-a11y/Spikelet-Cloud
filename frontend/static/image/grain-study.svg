@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" fill="none">
+  <title>Rice grain study</title>
+  <defs>
+    <linearGradient id="husk" x1="-63" y1="170" x2="63" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#aa793c"/><stop offset=".14" stop-color="#c79d60"/>
+      <stop offset=".36" stop-color="#ead2a0"/><stop offset=".5" stop-color="#f1dfb7"/>
+      <stop offset=".61" stop-color="#d8b77e"/><stop offset=".8" stop-color="#b88e50"/>
+      <stop offset="1" stop-color="#80582e"/>
+    </linearGradient>
+    <linearGradient id="pearl" x1="-53" y1="140" x2="53" y2="146" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d7c5a2"/><stop offset=".26" stop-color="#f4ead4"/>
+      <stop offset=".49" stop-color="#fff9eb"/><stop offset=".7" stop-color="#eee2c9"/>
+      <stop offset="1" stop-color="#c0aa84"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="0" y1="9" x2="0" y2="352" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff2cf" stop-opacity=".3"/><stop offset=".45" stop-color="#fff6db"/>
+      <stop offset="1" stop-color="#fff2cf" stop-opacity=".1"/>
+    </linearGradient>
+    <radialGradient id="shade"><stop stop-color="#5c4124" stop-opacity=".17"/><stop offset="1" stop-color="#5c4124" stop-opacity="0"/></radialGradient>
+    <pattern id="fibres" width="9" height="18" patternUnits="userSpaceOnUse">
+      <path d="M2 0q2 9 0 18M7 0q-1 9 0 18" stroke="#78552e" stroke-opacity=".14" stroke-width=".65"/>
+      <path d="M4 2v10" stroke="#fff4d5" stroke-opacity=".3" stroke-width=".8"/>
+    </pattern>
+    <path id="outline" d="M0 0C-14 20-44 40-55 112c-12 79 2 162 36 218l18 30 18-30c35-62 50-145 37-222C44 42 15 19 0 0Z"/>
+    <g id="grain">
+      <use href="#outline" fill="url(#husk)"/>
+      <use href="#outline" fill="url(#fibres)"/>
+      <path d="M-2 17C-7 90-5 196-1 342" stroke="url(#ridge)" stroke-width="3.5"/>
+      <path d="M-15 36c-23 86-21 181 8 283M17 39c25 79 19 182-12 284" stroke="#fff0c8" stroke-opacity=".48" stroke-width="1.3"/>
+      <path d="M-30 60c-26 82-15 166 8 222M31 64c24 78 13 159-9 215" stroke="#805d31" stroke-opacity=".3"/>
+      <path d="M-40 86c-16 60-10 120 1 161M41 91c14 59 8 113-2 152" stroke="#fff2d0" stroke-opacity=".4"/>
+      <path d="m0-15 1 17M-2 355l-3 18" stroke="#b28951" stroke-width="2" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <ellipse cx="270" cy="521" rx="123" ry="20" fill="url(#shade)"/>
+  <ellipse cx="516" cy="540" rx="124" ry="18" fill="url(#shade)"/>
+  <ellipse cx="744" cy="510" rx="99" ry="16" fill="url(#shade)"/>
+  <g transform="translate(277 73) rotate(-23 0 180)"><use href="#grain"/></g>
+  <g transform="translate(504 107) rotate(14 0 180)"><use href="#grain"/></g>
+  <g transform="translate(729 180) rotate(29 0 135) scale(.83)">
+    <path d="M0 7C-48 31-62 91-50 173c8 56 23 94 50 121 31-28 47-71 52-121C61 92 47 32 0 7Z" fill="url(#pearl)"/>
+    <path d="M-5 26c-12 69-11 156 3 245" stroke="#fffdf4" stroke-opacity=".8" stroke-width="3"/>
+    <path d="M-28 53c-22 66-15 144 10 194M23 50c25 70 19 142-10 204" stroke="#b6a17d" stroke-opacity=".23" stroke-width="1.4"/>
+  </g>
+</svg>

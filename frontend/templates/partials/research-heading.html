@@ -1,0 +1,8 @@
+<header class="research-heading">
+    <div>
+        <p class="research-eyebrow"><span data-ui-cn="{{ research_mode_cn }}" data-ui-en="{{ research_mode_en }}">{{ research_mode_cn }}</span></p>
+        <h1 data-ui-cn="{{ research_title_cn }}" data-ui-en="{{ research_title_en }}">{{ research_title_cn }}</h1>
+        <p class="research-description" data-ui-cn="{{ research_description_cn }}" data-ui-en="{{ research_description_en }}">{{ research_description_cn }}</p>
+    </div>
+    {% if not research_hide_workflow %}<img class="research-heading-grain" src="/static/image/grain-study.svg" alt="" width="500" height="290" aria-hidden="true">{% endif %}
+</header>

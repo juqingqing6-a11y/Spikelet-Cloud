@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <title>批量处理</title>
     <base href="/">
@@ -385,9 +385,11 @@
         }
 
     </style>
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
+    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
 </head>
 
-<body>
+<body class="research-ui research-app research-batch">
     <div class="container_one">
 
 
@@ -409,6 +411,7 @@
                 </span>
                 <hr style="width: 100%;margin: 0">
             </div>
+            <div class="research-nav-label" data-ui-cn="研究工作台" data-ui-en="WORKSPACE">研究工作台</div>
             <ul>
                 <li class="item" data-onclick="goToSpikeSum">
                     <i class="icon icon-file"></i>穗粒计数
@@ -446,7 +449,8 @@
                     {{ username }}<span id="welcomeMessage" style="margin-left: 5px">欢迎您</span>
                 </li>
             </ul>
-        </div>
+        <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
+    </div>
         <div class="right-box"
              style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">
             <div style="position: fixed; top: 0; left: 280px; width: 100%; height: 52px; background-color: #e9ecef; margin-left: 2px;z-index: 999"
@@ -493,10 +497,11 @@
 
                 </div>
             </div>
-            <div style="background-color: white;width: auto;margin-top: 52px">
+            <div class="research-workspace" style="background-color: white;width: auto;margin-top: 52px">
+                {% include "partials/research-heading.html" with research_title_cn="更多图像，一次完成。" research_title_en="More images. One workflow." research_description_cn="按文件夹导入稻穗图像，集中分析与导出表型数据。" research_description_en="Import a folder. Analyse your collection. Export the traits." research_mode_cn="批量分析" research_mode_en="BATCH WORKFLOW" %}
 
                 <div class="col-md-12" style="margin-top: 30px;">
-                    <div class="row">
+                    <div class="row workflow-row workflow-primary">
                         <div class="col-md-9">
                             <div class="card">
                                 <div class="card-header" style="display: flex;height: 50px;background-color: #9BCD9B">
@@ -570,8 +575,8 @@
 
                     </div>
                 </div>
-            <div class="col-md-12" style="margin-top: 30px;height: 500px;flex: 0">
-                <div class="row">
+            <div class="col-md-12 research-workspace research-batch-results" style="margin-top: 30px;height: 500px;flex: 0">
+                <div class="row workflow-row workflow-secondary">
                     <div class="col-md-2" style="height: 450px">
                         <div class="card">
                             <div class="card-header" style="letter-spacing: 1px;background-color: #9BCD9B" id="header3">3. 批量分析:</div>
@@ -688,7 +693,7 @@
                 </div>
             </div>
 
-            <div style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
+            <div class="research-footer" style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
                 color: black; font-size: 14px;">
                 <div style="margin-left: 30%; display: flex; align-items: center;">
                     <img src="../static/image/logo.png" style="width: auto; height: 100%;">

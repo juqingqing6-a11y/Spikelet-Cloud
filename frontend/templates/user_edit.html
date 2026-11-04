@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}RGPAS · 稻穗表型分析{% endblock %}</title>
     <base href="/">
     {% block css %}
 
@@ -136,8 +136,10 @@
             line-height: 1.5;
         }
     </style>
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
+    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
 </head>
-<body>
+<body class="research-ui research-app research-support">
 
 <div class="container_one">
 
@@ -156,6 +158,7 @@
             <hr style="width: 100%;margin: 0">
         </div>
 
+            <div class="research-nav-label" data-ui-cn="研究工作台" data-ui-en="WORKSPACE">研究工作台</div>
             <ul>
                 <li class="item active" data-onclick="goToSpikeSum">
                     <i class="icon icon-file" style="color: white"></i>穗粒计数
@@ -198,6 +201,7 @@
 
 
 s
+    <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
     </div>
     <div class="right-box"
          style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">

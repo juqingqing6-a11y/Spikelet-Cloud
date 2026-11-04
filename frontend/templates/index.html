@@ -3,9 +3,9 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}RGPAS · 稻穗表型分析{% endblock %}</title>
     <base href="/">
     {% block css %}
 
@@ -275,9 +275,11 @@
 
     </style>
 <script src="/static/js/single_analysis.js?v=20261021-1" defer></script>
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
+    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
 </head>
 
-<body>
+<body class="research-ui research-app research-single">
 
 <div class="container_one">
 
@@ -300,6 +302,7 @@
             <hr style="width: 100%;margin: 0">
         </div>
         {% block ul %}
+            <div class="research-nav-label" data-ui-cn="研究工作台" data-ui-en="WORKSPACE">研究工作台</div>
             <ul>
 
                 <li class="item active" data-onclick="goToSpikeSum">
@@ -346,6 +349,7 @@
         {% endblock %}
 
 
+    <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
     </div>
     <div class="right-box"
          style="width: 100%;height:100%;display: flex; flex-direction: column;background-color: white">
@@ -391,10 +395,11 @@
 
             </div>
 
-            <div style="background-color: white;width: auto;margin-top: 52px">
+            <div class="research-workspace" style="background-color: white;width: auto;margin-top: 52px">
+                {% include "partials/research-heading.html" with research_title_cn="看清每一粒。" research_title_en="Every grain. In focus." research_description_cn="从一张稻穗图像开始，计数、提取并测量籽粒性状。" research_description_en="Count, extract and measure. It starts with a panicle image." research_mode_cn="单图分析" research_mode_en="SINGLE IMAGE" %}
 
                 <div class="col-md-12" style="margin-top: 20px;margin-left: 90px">
-                    <div class="row">
+                    <div class="row workflow-row workflow-primary">
 
                         <div id="infoBox" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
                                         background-color: white; padding: 100px; border: 5px solid #ccc; border-radius: 5px; z-index: 1000;
@@ -402,8 +407,8 @@
                                         <p>Please select a correct image file!</p>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="card"
+                        <div class="col-md-4 research-input">
+                            <div class="card research-upload-card"
                                  style="width: 300px;height: 400px;border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                                 <div class="card-header" id="rechoice" style="background-color: #9BCD9B;height: 53px" >
                                     <a title="上传单张图片" data-toggle="popover" data-trigger="hover"
@@ -412,10 +417,11 @@
                                 <img id="img_upload_show"
                                      style="display: none;width: 298px; height: 88%; ">
                                 <div class="card-body add" id="add" style="padding: 0px">
+                                    <div class="research-upload-copy" aria-hidden="true"><span class="research-upload-symbol">↥</span><strong data-ui-cn="点击上传稻穗图片" data-ui-en="Choose a panicle image">点击上传稻穗图片</strong><small data-ui-cn="单张图像 · 支持常见图片格式" data-ui-en="Single image · common image formats">单张图像 · 支持常见图片格式</small></div>
                                     <form method="post" style="width: 100%; height: 100%" id="form1"
                                           enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <input id="file" name="file" class="filepath"
+                                        <input id="file" aria-label="上传稻穗图片 / Upload panicle image" name="file" class="filepath"
                                                onchange="handleSelected()"
                                                type="file"
                                                style="width: 100%; height: 100%; opacity: 0">
@@ -444,7 +450,7 @@
                             </text>
                         </svg>
 
-                        <div class="col-md-4" disabled id="myDiv">
+                        <div class="col-md-4 research-model" disabled id="myDiv">
 
                             <div class="card"
                                  style="width: 300px;height: 400px;border-radius: 10px;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
@@ -500,7 +506,7 @@
                             </text>
                         </svg>
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 research-result">
                             <div class="card"
                                  style="width: 300px;height: 400px;border-radius: 10px;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                                 <div class="card-header"
@@ -539,9 +545,9 @@
                 </svg>
 
                 <div class="col-md-12" style="margin-top: 130px;margin-left: 70px">
-                    <div class="row">
+                    <div class="row workflow-row workflow-secondary">
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 research-gallery">
 
                             <div class="card"
                                  style="border-radius: 10px;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);height: 300px">
@@ -577,7 +583,7 @@
                             <path d="M170 0 Q50 50 0 0" fill="none" stroke="#4682B4" stroke-width="1.5" marker-end="url(#array)" id="path2"></path>
 
                         </svg>
-                        <div class="col-md-4">
+                        <div class="col-md-4 research-extraction">
                             <div class="card"
                                  style="border-radius: 10px;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);height: 300px">
                                 <div class="card-header"
@@ -637,7 +643,7 @@
 
             </div>
 
-            <div style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
+            <div class="research-footer" style="position: fixed; bottom: 0; width:100%; height: 65px; background-color: white; display: flex; align-items: center; justify-content: flex-start;
                 color: black; font-size: 14px;">
                 <div style="margin-left: 30%; display: flex; align-items: center;">
                     <img src="../static/image/logo.png" style="width: auto; height: 100%;">
