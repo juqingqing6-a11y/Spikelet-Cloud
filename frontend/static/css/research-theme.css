@@ -651,3 +651,31 @@ html[lang="en"] .research-single .research-workspace #pic:empty::after { content
 @media (min-width: 1100px) {
     .research-batch .workflow-primary { grid-template-columns: minmax(0, 1fr) minmax(240px, 300px); }
 }
+
+/* Authentication uses the same field photography, paper and sage surfaces as the workspace. */
+.research-auth { background-color: #fbfcf7 !important; background-image: radial-gradient(#7f916018 .65px, transparent .65px) !important; background-size: 12px 12px !important; }
+.research-auth-story { background: linear-gradient(150deg, #f4f5eb, #edf2e7); border-right: 1px solid #e1e7d8; }
+.research-auth-intro { padding-top: 38px; }
+.research-auth-intro h1 { font-size: clamp(42px,4.2vw,62px); }
+.research-auth .research-specimen { width: 100%; max-width: 600px; margin: 30px 0 0; }
+.research-auth .research-specimen > img { width: 100%; height: 255px; max-height: none; object-fit: cover; object-position: center 48%; border-radius: 17px; border: 1px solid #e0e6d5; box-shadow: 0 14px 35px #3f542f12; }
+.research-auth .research-specimen:hover > img { transform: translateY(-3px); }
+.research-auth .research-specimen figcaption { margin: 16px 0 0; padding: 0; color: #788467; }
+.research-auth .research-specimen em { color: #6c795b; }
+.research-auth > .container { width: min(82%, 460px) !important; padding: 40px 36px; background: #ffffffed !important; border: 1px solid #e0e7d8; border-radius: 19px !important; box-shadow: 0 18px 60px #3d552b0a; }
+.research-login > .container > div:first-child::before { content: "RGPAS / SIGN IN"; color: #81946c; letter-spacing: .13em; }
+.research-auth .container h2 { color: #354c36 !important; font-size: 28px; }
+.research-auth .input-group-text { color: #607255; }
+.research-auth .input-group > .form-control { background: #fafcf7 !important; border-color: #dce5d3 !important; height: 48px; }
+.research-auth .input-group > .form-control:focus { background: #fff !important; border-color: #a4b88f !important; box-shadow: 0 0 0 3px #8da77918 !important; }
+.research-auth #userLogin { background: #3b593d !important; border-color: #3b593d !important; }
+.research-auth #userLogin:hover { background: #4b6a45 !important; box-shadow: 0 5px 15px #435d3020; }
+.research-auth #adLogin { background: #f5f8f0 !important; border-color: #d5dfcb !important; color: #526b43 !important; }
+.research-auth #adLogin:hover { background: #eaf1e2 !important; }
+.research-auth .container > div:nth-child(2) > div[style*="display: flex"] { border-top: 1px solid #edf0e7; padding-top: 21px; }
+@media (max-width: 900px) { .research-auth > .container { padding: 32px 24px; } }
+@media (max-width: 640px) {
+    .research-auth-story { border-right: 0; border-bottom: 1px solid #e1e7d8; }
+    .research-auth .research-specimen { display: none; }
+    .research-auth > .container { width: calc(100% - 32px) !important; margin: 24px auto; padding: 28px 22px; }
+}
