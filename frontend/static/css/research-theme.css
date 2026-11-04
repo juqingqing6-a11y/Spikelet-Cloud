@@ -617,3 +617,37 @@ html[lang="en"] .research-single .research-workspace #pic:empty::after { content
     .research-field-caption { display: none; }
     .research-single .research-heading > div, .research-batch .research-heading > div { max-width: 100%; }
 }
+
+/* Batch model picker: soft boundaries and a shared sage hover/selection palette. */
+.research-batch .research-native-select { display: none !important; }
+.research-batch .research-model-trigger {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    width: 100%; min-height: 46px; padding: 11px 15px;
+    color: #344437; background: #f3f5ef; border: 1px solid #dfe5d8;
+    border-radius: 13px; font: 450 14px/1.6 var(--font-ui); text-align: left;
+    box-shadow: 0 1px 2px #32452c04; cursor: pointer;
+    transition: background .24s, border-color .24s, box-shadow .3s, transform .24s !important;
+}
+.research-batch .research-model-trigger:hover:not(:disabled) { background: #edf2e7; border-color: #bccbb0; box-shadow: 0 4px 13px #475e3610; }
+.research-batch .research-model-trigger:focus-visible,
+.research-batch .research-model-trigger[aria-expanded="true"] { outline: none !important; border-color: #a2b491; box-shadow: 0 0 0 3px #8da77919; background: #f5f8f0; }
+.research-model-chevron { width: 7px; height: 7px; border-right: 1.5px solid #69815a; border-bottom: 1.5px solid #69815a; transform: translateY(-2px) rotate(45deg); transition: transform .32s cubic-bezier(.22,1,.36,1); }
+[aria-expanded="true"] > .research-model-chevron { transform: translateY(2px) rotate(225deg); }
+.research-model-menu { position: fixed; z-index: 1040; padding: 6px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid #dce5d3; border-radius: 15px; color: #344437; background: #fcfdf9f7; backdrop-filter: blur(16px); box-shadow: 0 14px 36px #374b2820, 0 2px 6px #374b2808; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-7px) scale(.985); transform-origin: top center; transition: opacity .2s ease, transform .28s cubic-bezier(.22,1,.36,1), visibility .28s; }
+.research-model-menu.opens-up { transform-origin: bottom center; transform: translateY(7px) scale(.985); }
+.research-model-menu.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+.research-model-option { position: relative; padding: 11px 38px 11px 13px; margin: 2px 0; border-radius: 9px; font: 450 14px/1.5 var(--font-ui); cursor: pointer; transition: background .2s, color .2s, padding-left .25s cubic-bezier(.22,1,.36,1); }
+.research-model-option.is-highlighted { background: #eaf1e2; color: #35522e; padding-left: 17px; }
+.research-model-option[aria-selected="true"] { color: #35522e; font-weight: 600; }
+.research-model-option[aria-selected="true"]::after { content: ""; position: absolute; right: 16px; top: 15px; width: 6px; height: 10px; border-right: 1.5px solid #718d5e; border-bottom: 1.5px solid #718d5e; transform: rotate(45deg); }
+.research-model-option[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+
+/* Let the batch inputs follow their content instead of stretching to workspace card heights. */
+.research-batch .workflow-primary { align-items: start; }
+.research-batch .workflow-primary .card { min-height: 0; height: auto !important; }
+.research-batch .workflow-primary .card-body { min-height: 0; }
+.research-batch .research-batch-model .card-body { padding: 14px 18px !important; }
+.research-batch .research-batch-model .form-group { margin: 0; }
+@media (min-width: 1100px) {
+    .research-batch .workflow-primary { grid-template-columns: minmax(0, 1fr) minmax(240px, 300px); }
+}

@@ -39,14 +39,8 @@ CONTEXT = {
     "csrf_token": "local-visual-preview-no-backend", "model_name": "", "sum": "",
     "data_list": [], "queryset": [], "page_string": "", "image_names": [],
 }
-PREVIEW_NAV = '''<details id="local-preview-tools" style="position:fixed;right:14px;bottom:12px;z-index:20000;background:#fff;color:#3c5b47;border:1px solid #d1dccb;border-radius:8px;padding:9px 12px;font:11px/1.6 'Segoe UI','Microsoft YaHei',sans-serif;box-shadow:0 3px 16px #102d1910;max-width:calc(100vw - 28px)">
-<summary style="cursor:pointer">本地界面预览 · 未连接业务后台</summary>
-<nav style="display:flex;flex-wrap:wrap;gap:13px;padding-top:9px"><a href="/">登录</a><a href="/register/">注册</a><a href="/index/">单图分析</a><a href="/atest/">批量分析</a><a href="/adatabase/">资源库</a><a href="/use/">使用说明</a></nav>
-</details>'''
-
-
 def render_page(template):
-    return ENGINE.get_template(template).render(Context(CONTEXT)).replace("</body>", PREVIEW_NAV + "</body>")
+    return ENGINE.get_template(template).render(Context(CONTEXT))
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -94,5 +88,4 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     print(f"Local preview: http://127.0.0.1:{args.port}/", flush=True)
-    print("Visual preview only. Login, model inference and exports require the real test backend.", flush=True)
     ThreadingHTTPServer(("127.0.0.1", args.port), Handler).serve_forever()
