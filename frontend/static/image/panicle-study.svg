@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" fill="none">
+  <defs>
+    <linearGradient id="field" x1="70" y1="0" x2="300" y2="220" gradientUnits="userSpaceOnUse"><stop stop-color="#f3f3e7"/><stop offset="1" stop-color="#eaf1e8"/></linearGradient>
+    <path id="seed" d="M0 0C-8 2-14 15-10 28c10-2 17-17 10-28Z"/>
+  </defs>
+  <ellipse cx="180" cy="112" rx="124" ry="88" fill="url(#field)"/>
+  <g stroke="#c5d2bf" stroke-width=".8"><path d="M36 49V29h20m268 20V29h-20M36 171v20h20m268-20v20h-20"/><path d="M55 205h250" stroke-dasharray="2 5"/></g>
+  <g stroke="#82946f" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M121 194C146 155 158 95 198 49M160 119c-24-5-48 7-67 33M170 98c-5-18-13-25-29-31M182 73c11-15 30-18 51-10M147 148c18-13 43-9 60 2M157 123c19-16 42-17 66-6M167 104c17-7 43-3 60 13M185 68c1-14 0-24-7-33"/>
+    <g fill="#edf0df"><use href="#seed" transform="translate(99 135) rotate(-8)"/><use href="#seed" transform="translate(117 121) rotate(-23)"/><use href="#seed" transform="translate(141 57) rotate(-55)"/><use href="#seed" transform="translate(153 70) rotate(-45)"/><use href="#seed" transform="translate(177 25) rotate(-14)"/><use href="#seed" transform="translate(218 53) rotate(69)"/><use href="#seed" transform="translate(239 60) rotate(82)"/><use href="#seed" transform="translate(209 102) rotate(89)"/><use href="#seed" transform="translate(233 113) rotate(92)"/><use href="#seed" transform="translate(204 138) rotate(105)"/><use href="#seed" transform="translate(217 153) rotate(126)"/></g>
+    <path d="M122 194c-8-25-8-46 5-72 5 25 1 47-5 72Z" fill="#dde6d5" stroke="#a9b99b"/>
+  </g>
+  <g stroke="#b7a780" stroke-width=".8"><path d="M268 83v78m-4-78h8m-8 78h8M259 83h-15m15 78h-15" stroke-dasharray="2 3"/></g>
+  <circle cx="268" cy="83" r="2.5" fill="#b7a780"/><circle cx="268" cy="161" r="2.5" fill="#b7a780"/>
+</svg>

@@ -275,8 +275,8 @@
 
     </style>
 <script src="/static/js/single_analysis.js?v=20261021-1" defer></script>
-    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-2">
-    <script src="/static/js/research-ui.js?v=20261104-2" defer></script>
+    <link rel="stylesheet" href="/static/css/research-theme.css?v=20261104-4">
+    <script src="/static/js/research-ui.js?v=20261104-4" defer></script>
 </head>
 
 <body class="research-ui research-app research-single">
@@ -349,6 +349,7 @@
         {% endblock %}
 
 
+    {% include "partials/research-field-notes.html" %}
     <div class="research-sidebar-note">RICE GRAIN PHENOTYPING<br>CAS &amp; NAU</div>
     </div>
     <div class="right-box"
@@ -396,7 +397,7 @@
             </div>
 
             <div class="research-workspace" style="background-color: white;width: auto;margin-top: 52px">
-                {% include "partials/research-heading.html" with research_title_cn="看清每一粒。" research_title_en="Every grain. In focus." research_description_cn="从一张稻穗图像开始，计数、提取并测量籽粒性状。" research_description_en="Count, extract and measure. It starts with a panicle image." research_mode_cn="单图分析" research_mode_en="SINGLE IMAGE" %}
+                {% include "partials/research-heading.html" with research_title_cn="穗粒表型分析" research_title_en="Grain phenotyping" research_description_cn="从一张稻穗图像开始，计数、提取并测量籽粒性状。" research_description_en="Count, extract and measure. It starts with a panicle image." research_mode_cn="单图分析" research_mode_en="SINGLE IMAGE" %}
 
                 <div class="col-md-12" style="margin-top: 20px;margin-left: 90px">
                     <div class="row workflow-row workflow-primary">
@@ -470,7 +471,7 @@
 
                                             </select>
                                         </div>
-                                        <h6 style="font-size: 16px;letter-spacing:3px;line-height:1.5;" id="box2">
+                                        <h6 style="font-size: 16px;letter-spacing:3px;line-height:1.5;" id="box2" data-ui-cn="上传图像后选择检测模型。完成计数，即可继续提取完整粒。" data-ui-en="Choose a model after uploading. Count grains, then extract complete grains.">
                                             上传图片后，请选择适当的AI模型对图片进行穗粒计数，可用的AI模型包括RGD-YOlO、YOLOV8和YOLOV10。模型选择后，点击下方的“穗粒计数”按钮进行分析，结果在“3. 计数结果展示”界面中展示。
                                         </h6>
                                         <div class="form-group" id="summer">
@@ -597,7 +598,7 @@
                                      style="padding:1.25rem;margin: 0;height: 100px;display: flex; justify-content: center; align-items: center;">
                                     <form method="post" enctype="multipart/form-data" id="birthday" data-single-extract-url="{% url 'complety' %}">
                                         {% csrf_token %}
-                                        <h6 style="font-size: 16px;letter-spacing:3px;line-height:1.5;" id="box4">
+                                        <h6 style="font-size: 16px;letter-spacing:3px;line-height:1.5;" id="box4" data-ui-cn="计数完成后，提取完整粒图像。大图可能需要几分钟。" data-ui-en="Extract complete grains after counting. Large images may take a few minutes.">
                                             分析图片完成穗粒检测后，点击下方“完整粒提取”按钮，实现稻穗图片完整粒提取，由于分析图像过多，请耐心等待几分钟。
                                         </h6>
                                         <button type="submit" class="SortButton"
