@@ -1,0 +1,11 @@
+# dataset path
+#path: C:/Users/omen/Desktop/wheat_spike/
+train: D:/AAAAzhangmin/panicle_training_datasets/panicle_all/images/train
+val: D:/AAAAzhangmin/panicle_training_datasets/panicle_all/images/val
+# test: ./dataset/images/test
+
+# number of classes
+nc: 1
+
+# class names
+names: ['panicle']

@@ -1,0 +1,30 @@
+# Python 3.11 Windows development environment.
+# Install PyTorch CPU separately before this file.
+
+Django==4.2.3
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.0
+PyJWT==2.8.0
+
+numpy==1.26.4
+scipy==1.11.4
+pandas==1.5.3
+scikit-image==0.21.0
+opencv-python==4.7.0.72
+Pillow==9.5.0
+matplotlib==3.7.2
+seaborn==0.12.2
+openpyxl==3.1.2
+
+efficientnet-pytorch==0.7.1
+timm==0.9.12
+huggingface-hub==0.20.2
+einops==0.7.0
+dill==0.3.7
+thop==0.1.1.post2209072238
+
+PyYAML==6.0.1
+requests==2.32.3
+tqdm==4.66.5
+psutil==5.9.7
+py-cpuinfo==9.0.0
